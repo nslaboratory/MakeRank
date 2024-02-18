@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:make_rank/next_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Image? _image2;
   Image? _image3;
 
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  late TutorialCoachMark tutorialCoachMark;
+
+  GlobalKey keyButton = GlobalKey();
+  GlobalKey keyImage = GlobalKey();
+  GlobalKey keyTextBox = GlobalKey();
+
   final picker = ImagePicker();
 
   final controller0 = TextEditingController();
@@ -72,9 +83,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    _prefs.then((SharedPreferences prefs) {
+      var isTutorialed = prefs.getInt('isTutorial') ?? 0;
+      if (isTutorialed == 0) {
+        createTutorial();
+        Future.delayed(Duration.zero, showTutorial);
+      }
+      _loadAd();
+    });
+    super.initState();
+/*    var isTutorialed = _prefs.then((SharedPreferences prefs) {
+      return prefs.getInt('isTutorial') ?? 0;
+    });
+    if (isTutorialed == 0) {
+      createTutorial();
+      Future.delayed(Duration.zero, showTutorial);
+    }
+
     super.initState();
 
-    _loadAd();
+    _loadAd();*/
   }
 
   /// Loads a rewarded ad.
@@ -121,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             ListTile(
                 leading: GestureDetector(
+                  key: keyImage,
                   child: _image0 == null
                       ? const Icon(Icons.image, size: 30)
                       : _image0,
@@ -129,6 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
                 title: TextField(
+                  key: keyTextBox,
                   controller: controller0,
                   onChanged: (text) {
                     textFieldList[0] = text;
@@ -196,12 +226,14 @@ class _MyHomePageState extends State<MyHomePage> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+//            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
             child: SizedBox(
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.06,
               //            child: ElevatedButton(
               child: FilledButton(
+                key: keyButton,
                 style: FilledButton.styleFrom(shape: BeveledRectangleBorder()),
                 child: const Text(
                   "画像を生成",
@@ -270,5 +302,135 @@ class _MyHomePageState extends State<MyHomePage> {
         print('No image selected.');
       }
     });
+  }
+
+  void showTutorial() {
+    tutorialCoachMark.show(context: context);
+    _prefs.then((SharedPreferences prefs) {
+      prefs.setInt('isTutorial', 1);
+    });
+  }
+
+  void createTutorial() {
+    tutorialCoachMark = TutorialCoachMark(
+      targets: _createTargets(),
+      colorShadow: Colors.blue,
+      textSkip: "SKIP",
+      paddingFocus: 10,
+      opacityShadow: 0.5,
+      imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+      onFinish: () {
+        print("finish");
+      },
+      onClickTarget: (target) {
+        print('onClickTarget: $target');
+      },
+      onClickTargetWithTapPosition: (target, tapDetails) {
+        print("target: $target");
+        print(
+            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+      },
+      onClickOverlay: (target) {
+        print('onClickOverlay: $target');
+      },
+      onSkip: () {
+        print("skip");
+        return true;
+      },
+    );
+  }
+
+  List<TargetFocus> _createTargets() {
+    List<TargetFocus> targets = [];
+    targets.add(
+      TargetFocus(
+        identify: "keyImage",
+        keyTarget: keyImage,
+        alignSkip: Alignment.topRight,
+        enableOverlayTab: true,
+//        enableTargetTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.right,
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Imageの説明",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "keyTextBox",
+        keyTarget: keyTextBox,
+        alignSkip: Alignment.topRight,
+        enableOverlayTab: true,
+//        enableTargetTab: true,
+        shape: ShapeLightFocus.RRect,
+        radius: 10,
+        contents: [
+          TargetContent(
+            align: ContentAlign.bottom,
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "TextBoxの説明",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "keyButton",
+        keyTarget: keyButton,
+        alignSkip: Alignment.topRight,
+        enableOverlayTab: true,
+//        enableTargetTab: true,
+        shape: ShapeLightFocus.RRect,
+        radius: 10,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Buttonの説明",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+
+    return targets;
   }
 }
