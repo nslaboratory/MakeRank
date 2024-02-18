@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:share_plus/share_plus.dart';
 //import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class NextPage extends StatelessWidget {
   NextPage(this.names, this.imgs);
@@ -17,9 +18,18 @@ class NextPage extends StatelessWidget {
     return MaterialApp(
         title: "Grid List",
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+//          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorSchemeSeed: Colors.blue,
           useMaterial3: true,
         ),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale("ja", "JP"),
+        ],
         home: MyPage(
           title: 'Flutter Demo Home Page',
           names: names,
@@ -46,49 +56,7 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   final globalKey = GlobalKey();
   Uint8List? bytes;
-/*
-  RewardedAd? _rewardedAd;
-  final String _adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/5224354917'
-      : 'ca-app-pub-3940256099942544/1712485313';
 
-  @override
-  void initState() {
-    super.initState();
-
-    _loadAd();
-  }
-
-  /// Loads a rewarded ad.
-  void _loadAd() {
-    RewardedAd.load(
-        adUnitId: _adUnitId,
-        request: const AdRequest(),
-        rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-              // Called when the ad showed the full screen content.
-              onAdShowedFullScreenContent: (ad) {},
-              // Called when an impression occurs on the ad.
-              onAdImpression: (ad) {},
-              // Called when the ad failed to show full screen content.
-              onAdFailedToShowFullScreenContent: (ad, err) {
-                ad.dispose();
-              },
-              // Called when the ad dismissed full screen content.
-              onAdDismissedFullScreenContent: (ad) {
-                ad.dispose();
-              },
-              // Called when a click is recorded for an ad.
-              onAdClicked: (ad) {});
-
-          // Keep a reference to the ad so you can show it later.
-          _rewardedAd = ad;
-        }, onAdFailedToLoad: (LoadAdError error) {
-          // ignore: avoid_print
-          print('RewardedAd failed to load: $error');
-        }));
-  }
-*/
   Future _saveImage(GlobalKey globalKey) async {
     final boundary =
         globalKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
@@ -192,21 +160,25 @@ class _MyPageState extends State<MyPage> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: FloatingActionButton(
-                child: const Text("画像を保存する"),
-                onPressed: () {
-                  print(widget.names);
-                  print(widget.imgs);
-/*                  _rewardedAd?.show(onUserEarnedReward:
-                      (AdWithoutView ad, RewardItem rewardItem) {
-                    // ignore: avoid_print
-                    print('Reward amount: ${rewardItem.amount}');
-                  }); */
-                  _saveImage(globalKey);
-                },
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+//              padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 150.0),
+              child: SizedBox(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.06,
+                child: FilledButton(
+                  style:
+                      FilledButton.styleFrom(shape: BeveledRectangleBorder()),
+                  child: const Text(
+                    "画像を保存 & シェア",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    print(widget.names);
+                    print(widget.imgs);
+                    _saveImage(globalKey);
+                  },
+                ),
               ),
             ),
           )

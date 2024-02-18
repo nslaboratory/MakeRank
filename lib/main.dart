@@ -3,11 +3,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:make_rank/next_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-//import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
-//  WidgetsFlutterBinding.ensureInitialized();
-//  MobileAds.instance.initialize();
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
 
   runApp(const MyApp());
 }
@@ -64,6 +64,51 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var textFieldList = ["", "", "", ""];
   List<Image?> imageList = [null, null, null, null];
+
+  RewardedAd? _rewardedAd;
+  final String _adUnitId = Platform.isAndroid
+      ? 'ca-app-pub-3940256099942544/5224354917'
+      : 'ca-app-pub-3940256099942544/1712485313';
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadAd();
+  }
+
+  /// Loads a rewarded ad.
+  void _loadAd() {
+    RewardedAd.load(
+        adUnitId: _adUnitId,
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            // Called when the ad showed the full screen content.
+            onAdShowedFullScreenContent: (ad) {},
+            // Called when an impression occurs on the ad.
+            onAdImpression: (ad) {},
+            // Called when the ad failed to show full screen content.
+            onAdFailedToShowFullScreenContent: (ad, err) {
+              ad.dispose();
+              _loadAd();
+            },
+            // Called when the ad dismissed full screen content.
+            onAdDismissedFullScreenContent: (ad) {
+              ad.dispose();
+              _loadAd();
+            },
+            // Called when a click is recorded for an ad.
+            onAdClicked: (ad) {},
+          );
+
+          // Keep a reference to the ad so you can show it later.
+          _rewardedAd = ad;
+        }, onAdFailedToLoad: (LoadAdError error) {
+          // ignore: avoid_print
+          print('RewardedAd failed to load: $error');
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,11 +225,18 @@ class _MyHomePageState extends State<MyHomePage> {
 //                        imageList[1] = _image1;
 //                        imageList[2] = _image2;
 //                        imageList[3] = _image3;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        NextPage(textFieldList, imageList)));
+
+                            _rewardedAd?.show(onUserEarnedReward:
+                                (AdWithoutView ad, RewardItem rewardItem) {
+                              // ignore: avoid_print
+                              print('Reward amount: ${rewardItem.amount}');
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          NextPage(textFieldList, imageList)));
+                            });
                           },
               ),
             ),
