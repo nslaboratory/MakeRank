@@ -2,8 +2,13 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:make_rank/next_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+//import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
+//  WidgetsFlutterBinding.ensureInitialized();
+//  MobileAds.instance.initialize();
+
   runApp(const MyApp());
 }
 
@@ -16,9 +21,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+//        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorSchemeSeed: Colors.blue,
         useMaterial3: true,
+//        brightness: Brightness.light,
       ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale("ja", "JP"),
+      ],
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -29,13 +44,11 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   XFile? _image;
   Image? _image0;
   Image? _image1;
@@ -50,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final controller3 = TextEditingController();
 
   var textFieldList = ["", "", "", ""];
+  List<Image?> imageList = [null, null, null, null];
 
   @override
   Widget build(BuildContext context) {
@@ -57,95 +71,126 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Stack(
-        children: [
-          ListView(
-            children: [
-              ListTile(
+      body: Stack(children: [
+        ListView(
+          children: [
+            ListTile(
                 leading: GestureDetector(
-                  child: _image0 == null ? const Icon(Icons.image) : _image0,
+                  child: _image0 == null
+                      ? const Icon(Icons.image, size: 30)
+                      : _image0,
                   onTap: () {
                     _getImage(0);
-                  },              
+                  },
                 ),
                 title: TextField(
                   controller: controller0,
+                  onChanged: (text) {
+                    textFieldList[0] = text;
+                  },
                   decoration: InputDecoration(
-                    hintText: "1位のタイトルを入力"
-                  ),
-                )
-              ),
-              ListTile(
+                      labelText: "1位",
+                      floatingLabelBehavior: FloatingLabelBehavior.always),
+                )),
+            ListTile(
                 leading: GestureDetector(
-                  child: _image1 == null ? const Icon(Icons.image) : _image1,
+                  child: _image1 == null
+                      ? const Icon(Icons.image, size: 30)
+                      : _image1,
                   onTap: () {
                     _getImage(1);
-                  },              
+                  },
                 ),
                 title: TextField(
                   controller: controller1,
+                  onChanged: (text) {
+                    textFieldList[1] = text;
+                  },
                   decoration: const InputDecoration(
-                    hintText: "2位のタイトルを入力"
-                  ),
-                )
-              ),
-              ListTile(
+                      labelText: "2位",
+                      floatingLabelBehavior: FloatingLabelBehavior.always),
+                )),
+            ListTile(
                 leading: GestureDetector(
-                  child: _image2 == null ? const Icon(Icons.image) : _image2,
+                  child: _image2 == null
+                      ? const Icon(Icons.image, size: 30)
+                      : _image2,
                   onTap: () {
                     _getImage(2);
-                  },              
+                  },
                 ),
                 title: TextField(
                   controller: controller2,
+                  onChanged: (text) {
+                    textFieldList[2] = text;
+                  },
                   decoration: const InputDecoration(
-                    hintText: "3位のタイトルを入力"
-                  ),
-                )
-              ),
-              ListTile(
+                      labelText: "3位",
+                      floatingLabelBehavior: FloatingLabelBehavior.always),
+                )),
+            ListTile(
                 leading: GestureDetector(
-                  child: _image3 == null ? const Icon(Icons.image) : _image3,
+                  child: _image3 == null
+                      ? const Icon(Icons.image, size: 30)
+                      : _image3,
                   onTap: () {
                     _getImage(3);
-                  },              
+                  },
                 ),
                 title: TextField(
                   controller: controller3,
+                  onChanged: (text) {
+                    textFieldList[3] = text;
+                  },
                   decoration: const InputDecoration(
-                    hintText: "4位のタイトルを入力"
-                  ),
-                )
-              ),
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
+                      labelText: "4位",
+                      floatingLabelBehavior: FloatingLabelBehavior.always),
+                )),
+          ],
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
             child: SizedBox(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: FloatingActionButton(
-                child: const Text("ランキングを作成する"),
-                onPressed: () {
-                  textFieldList[0] = controller0.text;
-                  textFieldList[1] = controller1.text;
-                  textFieldList[2] = controller2.text;
-                  textFieldList[3] = controller3.text;
-                  print(textFieldList);
-                  print(_image0);
-                  print(_image1);
-                  print(_image2);
-                  print(_image3);
-                  var imageList = [_image0, _image1, _image2, _image3];
-
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => NextPage(textFieldList, imageList)));
-
-                },
+              height: MediaQuery.of(context).size.height * 0.06,
+              //            child: ElevatedButton(
+              child: FilledButton(
+                style: FilledButton.styleFrom(shape: BeveledRectangleBorder()),
+                child: const Text(
+                  "画像を生成",
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed:
+                    textFieldList.contains("") || imageList.contains(null)
+                        ? null
+                        : () {
+//                        textFieldList[0] = controller0.text;
+//                        textFieldList[1] = controller1.text;
+//                        textFieldList[2] = controller2.text;
+//                        textFieldList[3] = controller3.text;
+                            print(textFieldList);
+                            print(imageList);
+//                        print(_image0);
+//                        print(_image1);
+//                        print(_image2);
+//                        print(_image3);
+//                        imageList[0] = _image0;
+//                        imageList[1] = _image1;
+//                        imageList[2] = _image2;
+//                        imageList[3] = _image3;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NextPage(textFieldList, imageList)));
+                          },
               ),
             ),
-          )
-        ]
-      ) , // This trailing comma makes auto-formatting nicer for build methods.
+          ),
+        )
+      ]), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -158,12 +203,16 @@ class _MyHomePageState extends State<MyHomePage> {
         final imageForImage = Image.file(imageForFile);
         if (i == 0) {
           _image0 = imageForImage;
+          imageList[0] = _image0;
         } else if (i == 1) {
           _image1 = imageForImage;
+          imageList[1] = _image1;
         } else if (i == 2) {
           _image2 = imageForImage;
+          imageList[2] = _image2;
         } else if (i == 3) {
           _image3 = imageForImage;
+          imageList[3] = _image3;
         }
       } else {
         print('No image selected.');
