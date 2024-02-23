@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:share_plus/share_plus.dart';
-//import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class NextPage extends StatelessWidget {
@@ -18,7 +18,6 @@ class NextPage extends StatelessWidget {
     return MaterialApp(
         title: "Grid List",
         theme: ThemeData(
-//          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           colorSchemeSeed: Colors.blue,
           useMaterial3: true,
         ),
@@ -31,7 +30,7 @@ class NextPage extends StatelessWidget {
           Locale("ja", "JP"),
         ],
         home: MyPage(
-          title: 'Flutter Demo Home Page',
+          title: 'Rankる',
           names: names,
           imgs: imgs,
         ));
@@ -78,14 +77,9 @@ class _MyPageState extends State<MyPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: //Stack(
-//        children: [
-//          Align(
-          Center(
-//            alignment: const Alignment(0, -0.5),
-//        alignment: Alignment.center,
+      backgroundColor: Color(0xFFF2F2F7),
+      body: Center(
         child: Padding(
-//          padding: const EdgeInsets.all(8.0),
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -99,11 +93,6 @@ class _MyPageState extends State<MyPage> {
                   shrinkWrap: true,
                   children: [
                     GridTile(
-                      //child: Image.network("https://bokuyaba-anime.com/assets/img/top/kv03.jpg", fit: BoxFit.cover,),
-                      child: Image(
-                        image: widget.imgs[0]!.image,
-                        fit: BoxFit.cover,
-                      ),
                       footer: GridTileBar(
                         backgroundColor: Colors.black54,
                         title: Text(
@@ -113,13 +102,12 @@ class _MyPageState extends State<MyPage> {
                         ),
                         subtitle: Text("1位"),
                       ),
-                    ),
-                    GridTile(
-                      //child: Image.network("https://frieren-anime.jp/wp-content/themes/frieren_2023/assets/img/top/top/4_visual.jpg", fit: BoxFit.cover,),
                       child: Image(
-                        image: widget.imgs[1]!.image,
+                        image: widget.imgs[0]!.image,
                         fit: BoxFit.cover,
                       ),
+                    ),
+                    GridTile(
                       footer: GridTileBar(
                         backgroundColor: Colors.black54,
                         title: Text(
@@ -129,13 +117,12 @@ class _MyPageState extends State<MyPage> {
                         ),
                         subtitle: Text("2位"),
                       ),
-                    ),
-                    GridTile(
-                      //child: Image.network("https://kimetsu.com/anime/mugenresshahen_tv/assets/img/kv.jpg", fit: BoxFit.cover,),
                       child: Image(
-                        image: widget.imgs[2]!.image,
+                        image: widget.imgs[1]!.image,
                         fit: BoxFit.cover,
                       ),
+                    ),
+                    GridTile(
                       footer: GridTileBar(
                         backgroundColor: Colors.black54,
                         title: Text(
@@ -145,13 +132,12 @@ class _MyPageState extends State<MyPage> {
                         ),
                         subtitle: Text("3位"),
                       ),
-                    ),
-                    GridTile(
-                      //child: Image.network("https://bluelock-pr.com/tv1st/wp/wp-content/themes/bluelock-main/_assets/images/top/fv/v_1st.png?202303", fit: BoxFit.cover,),
                       child: Image(
-                        image: widget.imgs[3]!.image,
+                        image: widget.imgs[2]!.image,
                         fit: BoxFit.cover,
                       ),
+                    ),
+                    GridTile(
                       footer: GridTileBar(
                         backgroundColor: Colors.black54,
                         title: Text(
@@ -161,13 +147,16 @@ class _MyPageState extends State<MyPage> {
                         ),
                         subtitle: Text("4位"),
                       ),
+                      child: Image(
+                        image: widget.imgs[3]!.image,
+                        fit: BoxFit.cover,
+                      ),
                     )
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                //              padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 150.0),
                 child: SizedBox(
                   width: double.infinity,
                   height: MediaQuery.of(context).size.height * 0.06,
@@ -179,6 +168,7 @@ class _MyPageState extends State<MyPage> {
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
+                      Fluttertoast.showToast(msg: "保存中...");
                       print(widget.names);
                       print(widget.imgs);
                       _saveImage(globalKey);
@@ -190,32 +180,6 @@ class _MyPageState extends State<MyPage> {
           ),
         ),
       ),
-/*          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-//              padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 150.0),
-              child: SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.06,
-                child: FilledButton(
-                  style:
-                      FilledButton.styleFrom(shape: BeveledRectangleBorder()),
-                  child: const Text(
-                    "画像を保存 & シェア",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () {
-                    print(widget.names);
-                    print(widget.imgs);
-                    _saveImage(globalKey);
-                  },
-                ),
-              ),
-            ),
-          )*/
-//        ],
-//      ),
     );
   }
 }

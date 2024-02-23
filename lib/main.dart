@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:make_rank/next_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:make_rank/settings.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +24,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Rankる',
       theme: ThemeData(
-//        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         colorSchemeSeed: Colors.blue,
         useMaterial3: true,
-//        brightness: Brightness.light,
       ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale("ja", "JP"),
       ],
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Rankる'),
     );
   }
 }
@@ -92,48 +92,28 @@ class _MyHomePageState extends State<MyHomePage> {
       _loadAd();
     });
     super.initState();
-/*    var isTutorialed = _prefs.then((SharedPreferences prefs) {
-      return prefs.getInt('isTutorial') ?? 0;
-    });
-    if (isTutorialed == 0) {
-      createTutorial();
-      Future.delayed(Duration.zero, showTutorial);
-    }
-
-    super.initState();
-
-    _loadAd();*/
   }
 
-  /// Loads a rewarded ad.
   void _loadAd() {
     RewardedAd.load(
         adUnitId: _adUnitId,
         request: const AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(onAdLoaded: (ad) {
           ad.fullScreenContentCallback = FullScreenContentCallback(
-            // Called when the ad showed the full screen content.
             onAdShowedFullScreenContent: (ad) {},
-            // Called when an impression occurs on the ad.
             onAdImpression: (ad) {},
-            // Called when the ad failed to show full screen content.
             onAdFailedToShowFullScreenContent: (ad, err) {
               ad.dispose();
               _loadAd();
             },
-            // Called when the ad dismissed full screen content.
             onAdDismissedFullScreenContent: (ad) {
               ad.dispose();
               _loadAd();
             },
-            // Called when a click is recorded for an ad.
             onAdClicked: (ad) {},
           );
-
-          // Keep a reference to the ad so you can show it later.
           _rewardedAd = ad;
         }, onAdFailedToLoad: (LoadAdError error) {
-          // ignore: avoid_print
           print('RewardedAd failed to load: $error');
         }));
   }
@@ -143,7 +123,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: '設定',
+            onPressed: () {
+              Navigator.push(context,MaterialPageRoute(builder: (context) => const Settings()),);
+            },
+          )
+        ],
       ),
+      backgroundColor: Color(0xFFF2F2F7),
       body: Stack(children: [
         ListView(
           children: [
@@ -226,12 +216,10 @@ class _MyHomePageState extends State<MyHomePage> {
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-//            padding: const EdgeInsets.all(10.0),
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
             child: SizedBox(
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.06,
-              //            child: ElevatedButton(
               child: FilledButton(
                 key: keyButton,
                 style: FilledButton.styleFrom(shape: BeveledRectangleBorder()),
@@ -243,26 +231,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     textFieldList.contains("") || imageList.contains(null)
                         ? null
                         : () {
-//                        textFieldList[0] = controller0.text;
-//                        textFieldList[1] = controller1.text;
-//                        textFieldList[2] = controller2.text;
-//                        textFieldList[3] = controller3.text;
                             print(textFieldList);
                             print(imageList);
-//                        print(_image0);
-//                        print(_image1);
-//                        print(_image2);
-//                        print(_image3);
-//                        imageList[0] = _image0;
-//                        imageList[1] = _image1;
-//                        imageList[2] = _image2;
-//                        imageList[3] = _image3;
-
                             _rewardedAd?.show(onUserEarnedReward:
                                 (AdWithoutView ad, RewardItem rewardItem) {
-                              // ignore: avoid_print
                               print('Reward amount: ${rewardItem.amount}');
-
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -274,7 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         )
-      ]), // This trailing comma makes auto-formatting nicer for build methods.
+      ]), 
     );
   }
 
@@ -348,7 +321,6 @@ class _MyHomePageState extends State<MyHomePage> {
         keyTarget: keyImage,
         alignSkip: Alignment.topRight,
         enableOverlayTab: true,
-//        enableTargetTab: true,
         contents: [
           TargetContent(
             align: ContentAlign.right,
@@ -376,7 +348,6 @@ class _MyHomePageState extends State<MyHomePage> {
         keyTarget: keyTextBox,
         alignSkip: Alignment.topRight,
         enableOverlayTab: true,
-//        enableTargetTab: true,
         shape: ShapeLightFocus.RRect,
         radius: 10,
         contents: [
@@ -406,7 +377,6 @@ class _MyHomePageState extends State<MyHomePage> {
         keyTarget: keyButton,
         alignSkip: Alignment.topRight,
         enableOverlayTab: true,
-//        enableTargetTab: true,
         shape: ShapeLightFocus.RRect,
         radius: 10,
         contents: [
