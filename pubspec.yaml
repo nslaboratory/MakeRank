@@ -47,6 +47,7 @@ dependencies:
   package_info_plus: ^4.2.0
   flutter_native_splash: ^2.3.7
   fluttertoast: ^8.2.4
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -63,13 +64,18 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 flutter_native_splash:
   color: '#022d65'
-  #image: 'assets/sample.png'
+  image: 'assets/splash_android11.png'
   fullscreen: true
   android_12:
      icon_background_color: '#022d65'
-     #image: 'assets/sample.png'
-  #   icon_background_color_dark: '#000000'
-  #   image_dark: 'assets/sample.png'
+     image: 'assets/splash_android11.png'
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon_ios.png"
+  adaptive_icon_background: '#022d65'
+  adaptive_icon_foreground: 'assets/icon_android.png'
 
 # The following section is specific to Flutter packages.
 flutter:
