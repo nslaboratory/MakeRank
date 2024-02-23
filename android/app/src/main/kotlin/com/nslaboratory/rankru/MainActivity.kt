@@ -1,4 +1,4 @@
-package com.example.make_rank
+package com.nslaboratory.rankru
 
 import io.flutter.embedding.android.FlutterActivity
 

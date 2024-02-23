@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:make_rank/next_page.dart';
@@ -8,7 +10,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:make_rank/settings.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late TutorialCoachMark tutorialCoachMark;
 
+  late StreamSubscription<ConnectivityResult> subscription;
+
   GlobalKey keyButton = GlobalKey();
   GlobalKey keyImage = GlobalKey();
   GlobalKey keyTextBox = GlobalKey();
@@ -92,6 +96,13 @@ class _MyHomePageState extends State<MyHomePage> {
       _loadAd();
     });
     super.initState();
+
+    subscription =
+        Connectivity().onConnectivityChanged.listen(updateConnectionStatus);
+  }
+
+  Future<void> updateConnectionStatus(ConnectivityResult result) async {
+    if (result != ConnectivityResult.none) _loadAd();
   }
 
   void _loadAd() {
@@ -128,7 +139,10 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: const Icon(Icons.settings),
             tooltip: '設定',
             onPressed: () {
-              Navigator.push(context,MaterialPageRoute(builder: (context) => const Settings()),);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Settings()),
+              );
             },
           )
         ],
@@ -159,6 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 )),
             ListTile(
                 leading: GestureDetector(
+//                  key: keyImage,
                   child: _image1 == null
                       ? const Icon(Icons.image, size: 30)
                       : _image1,
@@ -227,27 +242,33 @@ class _MyHomePageState extends State<MyHomePage> {
                   "画像を生成",
                   style: TextStyle(fontSize: 20),
                 ),
-                onPressed:
-                    textFieldList.contains("") || imageList.contains(null)
-                        ? null
-                        : () {
-                            print(textFieldList);
-                            print(imageList);
-                            _rewardedAd?.show(onUserEarnedReward:
-                                (AdWithoutView ad, RewardItem rewardItem) {
-                              print('Reward amount: ${rewardItem.amount}');
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          NextPage(textFieldList, imageList)));
-                            });
-                          },
+                onPressed: textFieldList.contains("") ||
+                        imageList.contains(null)
+                    ? null
+                    : () async {
+                        final connectivityResult =
+                            await (Connectivity().checkConnectivity());
+                        if (connectivityResult == ConnectivityResult.none) {
+                          Fluttertoast.showToast(msg: "インターネット接続がありません");
+                        } else {
+                          print(textFieldList);
+                          print(imageList);
+                          _rewardedAd?.show(onUserEarnedReward:
+                              (AdWithoutView ad, RewardItem rewardItem) {
+                            print('Reward amount: ${rewardItem.amount}');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NextPage(textFieldList, imageList)));
+                          });
+                        }
+                      },
               ),
             ),
           ),
         )
-      ]), 
+      ]),
     );
   }
 
@@ -279,9 +300,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void showTutorial() {
     tutorialCoachMark.show(context: context);
-    _prefs.then((SharedPreferences prefs) {
-      prefs.setInt('isTutorial', 1);
-    });
   }
 
   void createTutorial() {
@@ -294,6 +312,9 @@ class _MyHomePageState extends State<MyHomePage> {
       imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: () {
         print("finish");
+        _prefs.then((SharedPreferences prefs) {
+          prefs.setInt('isTutorial', 1);
+        });
       },
       onClickTarget: (target) {
         print('onClickTarget: $target');
@@ -330,7 +351,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Imageの説明",
+                    "ランキングの生成に使用する\n画像を4枚選択します",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -353,13 +374,14 @@ class _MyHomePageState extends State<MyHomePage> {
         contents: [
           TargetContent(
             align: ContentAlign.bottom,
+            padding: EdgeInsets.only(left: 50),
             builder: (context, controller) {
               return const Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "TextBoxの説明",
+                    "ランキングの生成に使用する\nテキストを4ヶ所入力します",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -388,7 +410,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Buttonの説明",
+                    "すべての項目が入力されていることを確認し\n「画像を生成」をタップします\n※インターネット接続が必要です",
                     style: TextStyle(
                       color: Colors.white,
                     ),

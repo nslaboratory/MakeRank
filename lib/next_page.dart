@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:make_rank/settings.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -76,6 +77,18 @@ class _MyPageState extends State<MyPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: '設定',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Settings()),
+              );
+            },
+          )
+        ],
       ),
       backgroundColor: Color(0xFFF2F2F7),
       body: Center(
@@ -86,70 +99,83 @@ class _MyPageState extends State<MyPage> {
             children: [
               RepaintBoundary(
                 key: globalKey,
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 3.0,
-                  mainAxisSpacing: 3.0,
-                  shrinkWrap: true,
-                  children: [
-                    GridTile(
-                      footer: GridTileBar(
-                        backgroundColor: Colors.black54,
-                        title: Text(
-                          widget.names[0],
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  children: <Widget>[
+                    GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 3.0,
+                      mainAxisSpacing: 3.0,
+                      shrinkWrap: true,
+                      children: [
+                        GridTile(
+                          footer: GridTileBar(
+                            backgroundColor: Colors.black54,
+                            title: Text(
+                              widget.names[0],
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text("1位"),
+                          ),
+                          child: Image(
+                            image: widget.imgs[0]!.image,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        subtitle: Text("1位"),
-                      ),
-                      child: Image(
-                        image: widget.imgs[0]!.image,
-                        fit: BoxFit.cover,
-                      ),
+                        GridTile(
+                          footer: GridTileBar(
+                            backgroundColor: Colors.black54,
+                            title: Text(
+                              widget.names[1],
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text("2位"),
+                          ),
+                          child: Image(
+                            image: widget.imgs[1]!.image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        GridTile(
+                          footer: GridTileBar(
+                            backgroundColor: Colors.black54,
+                            title: Text(
+                              widget.names[2],
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text("3位"),
+                          ),
+                          child: Image(
+                            image: widget.imgs[2]!.image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        GridTile(
+                          footer: GridTileBar(
+                            backgroundColor: Colors.black54,
+                            title: Text(
+                              widget.names[3],
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text("4位"),
+                          ),
+                          child: Image(
+                            image: widget.imgs[3]!.image,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ],
                     ),
-                    GridTile(
-                      footer: GridTileBar(
-                        backgroundColor: Colors.black54,
-                        title: Text(
-                          widget.names[1],
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text("2位"),
-                      ),
-                      child: Image(
-                        image: widget.imgs[1]!.image,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    GridTile(
-                      footer: GridTileBar(
-                        backgroundColor: Colors.black54,
-                        title: Text(
-                          widget.names[2],
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text("3位"),
-                      ),
-                      child: Image(
-                        image: widget.imgs[2]!.image,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    GridTile(
-                      footer: GridTileBar(
-                        backgroundColor: Colors.black54,
-                        title: Text(
-                          widget.names[3],
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text("4位"),
-                      ),
-                      child: Image(
-                        image: widget.imgs[3]!.image,
-                        fit: BoxFit.cover,
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Text("generated by Rankる",
+                            style: TextStyle(color: Colors.white)),
                       ),
                     )
                   ],
