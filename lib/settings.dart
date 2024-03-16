@@ -54,7 +54,8 @@ class Settings extends StatelessWidget {
             ),
           ]
         ),
-      )
+      ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

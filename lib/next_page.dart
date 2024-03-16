@@ -34,7 +34,9 @@ class NextPage extends StatelessWidget {
           title: 'Rankる',
           names: names,
           imgs: imgs,
-        ));
+        ),
+        debugShowCheckedModeBanner: false,
+      );
   }
 }
 

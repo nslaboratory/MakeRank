@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
         Locale("ja", "JP"),
       ],
       home: const MyHomePage(title: 'Rankる'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -81,19 +82,30 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Image?> imageList = [null, null, null, null];
 
   RewardedAd? _rewardedAd;
-  final String _adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/5224354917'
-      : 'ca-app-pub-3940256099942544/1712485313';
+
+  final isDebug = false;
+  final enableAd = false;
+
+  var _adUnitId = "";
+
 
   @override
   void initState() {
+    if (isDebug) {
+      _adUnitId = Platform.isAndroid
+      ? 'ca-app-pub-3940256099942544/5224354917'
+      : 'ca-app-pub-3940256099942544/1712485313';
+    } else {
+      _adUnitId = 'ca-app-pub-9700455591074338/2708915001';
+    }
+
     _prefs.then((SharedPreferences prefs) {
       var isTutorialed = prefs.getInt('isTutorial') ?? 0;
       if (isTutorialed == 0) {
         createTutorial();
         Future.delayed(Duration.zero, showTutorial);
       }
-      _loadAd();
+      if (enableAd) _loadAd();
     });
     super.initState();
 
@@ -102,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> updateConnectionStatus(ConnectivityResult result) async {
-    if (result != ConnectivityResult.none) _loadAd();
+    if (result != ConnectivityResult.none && enableAd) _loadAd();
   }
 
   void _loadAd() {
@@ -253,15 +265,27 @@ class _MyHomePageState extends State<MyHomePage> {
                         } else {
                           print(textFieldList);
                           print(imageList);
-                          _rewardedAd?.show(onUserEarnedReward:
+                          if (enableAd) {
+                            _rewardedAd?.show(onUserEarnedReward:
                               (AdWithoutView ad, RewardItem rewardItem) {
                             print('Reward amount: ${rewardItem.amount}');
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        NextPage(textFieldList, imageList)));
-                          });
+                                        NextPage(textFieldList, imageList)
+                                        ));
+                            });
+                          } else {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NextPage(textFieldList, imageList)
+                                )
+                            );
+                          }
+                          
                         }
                       },
               ),
