@@ -33,14 +33,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Access to pick a photo</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Access to take a photo by camera</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>ライブラリに保存するよ</string>
+	<string>アプリ内で生成した画像を保存するためにフォトライブラリへの書き込み許可が必要です。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Access to pick a photo</string>
+	<string>アプリ内で写真や動画を表示・使用するためにフォトライブラリへのアクセスが必要です。</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

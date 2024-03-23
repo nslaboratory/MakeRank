@@ -9,53 +9,18 @@ import 'package:make_rank/settings.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-class NextPage extends StatelessWidget {
+
+class NextPage extends StatefulWidget {
   NextPage(this.names, this.imgs);
+
   final List<String> names;
   final List<Image?> imgs;
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "Grid List",
-        theme: ThemeData(
-          colorSchemeSeed: Colors.blue,
-          useMaterial3: true,
-        ),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale("ja", "JP"),
-        ],
-        home: MyPage(
-          title: 'Rankる',
-          names: names,
-          imgs: imgs,
-        ),
-        debugShowCheckedModeBanner: false,
-      );
-  }
+  State<NextPage> createState() => _MyPageState();
 }
 
-class MyPage extends StatefulWidget {
-  const MyPage(
-      {super.key,
-      required this.title,
-      required this.names,
-      required this.imgs});
-
-  final String title;
-  final List<String> names;
-  final List<Image?> imgs;
-
-  @override
-  State<MyPage> createState() => _MyPageState();
-}
-
-class _MyPageState extends State<MyPage> {
+class _MyPageState extends State<NextPage> {
   final globalKey = GlobalKey();
   Uint8List? bytes;
   bool isIOS = Platform.isIOS;
@@ -242,7 +207,7 @@ class _MyPageState extends State<MyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Rankる'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),

@@ -8,21 +8,7 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Settings",
-      theme: ThemeData(
-        colorSchemeSeed: Colors.blue,
-        useMaterial3: true,
-      ),
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale("ja", "JP"),
-      ],
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text("Settings"),
         ),
@@ -54,8 +40,6 @@ class Settings extends StatelessWidget {
             ),
           ]
         ),
-      ),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
