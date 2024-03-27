@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
   RewardedAd? _rewardedAd;
 
   final isDebug = false;
-  final enableAd = false;
+  final enableAd = true;
 
   var _adUnitId = "";
 
