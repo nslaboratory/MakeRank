@@ -268,16 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           print(textFieldList);
                           print(imageList);
                           if (enableAd) {
-                            _rewardedAd?.show(onUserEarnedReward:
-                              (AdWithoutView ad, RewardItem rewardItem) {
-                            print('Reward amount: ${rewardItem.amount}');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        NextPage(textFieldList, imageList)
-                                        ));
-                            });
+                            _showDialog();
                           } else {
                             Navigator.push(
                                 context,
@@ -322,6 +313,30 @@ class _MyHomePageState extends State<MyHomePage> {
         print('No image selected.');
       }
     });
+  }
+
+  Future _showDialog() async {
+    var value = await showDialog(
+      context: context,
+      builder: (BuildContext context) => new AlertDialog(
+        title: new Text('画像を生成する'),
+        content: new Text('広告を最後まで視聴すると画像を1回生成できます。'),
+        actions: <Widget>[
+          new SimpleDialogOption(child: new Text('Yes'),onPressed: (){Navigator.pop(context, true);},),
+          new SimpleDialogOption(child: new Text('No'),onPressed: (){Navigator.pop(context, false);},),
+        ],
+      ),
+    );
+    if (value) {
+      print("広告にとぶ");
+      _rewardedAd?.show(onUserEarnedReward:(AdWithoutView ad, RewardItem rewardItem) {
+        print('Reward amount: ${rewardItem.amount}');
+        Navigator.push(context,MaterialPageRoute(builder: (context) =>NextPage(textFieldList, imageList)));
+      });
+    } else {
+      print("広告にとばない");
+    }
+
   }
 
   void showTutorial() {
