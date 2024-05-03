@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:make_rank/crop_image.dart';
 import 'package:make_rank/next_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -11,6 +12,7 @@ import 'package:make_rank/settings.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Image? _image2;
   Image? _image3;
 
+  var pickedFile;
+
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   late TutorialCoachMark tutorialCoachMark;
@@ -83,22 +87,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   RewardedAd? _rewardedAd;
 
-  final isDebug = false;
+  final isDebug = true;
   final enableAd = true;
 
   var _adUnitId = "";
-
 
   @override
   void initState() {
     if (isDebug) {
       _adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/5224354917'
-      : 'ca-app-pub-3940256099942544/1712485313';
+          ? 'ca-app-pub-3940256099942544/5224354917'
+          : 'ca-app-pub-3940256099942544/1712485313';
     } else {
-      _adUnitId = Platform.isAndroid 
-      ? 'ca-app-pub-9700455591074338/2708915001'
-      : 'ca-app-pub-9700455591074338/7926531754';
+      _adUnitId = Platform.isAndroid
+          ? 'ca-app-pub-9700455591074338/2708915001'
+          : 'ca-app-pub-9700455591074338/7926531754';
     }
 
     _prefs.then((SharedPreferences prefs) {
@@ -274,11 +277,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        NextPage(textFieldList, imageList)
-                                )
-                            );
+                                        NextPage(textFieldList, imageList)));
                           }
-                          
                         }
                       },
               ),
@@ -289,11 +289,62 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+/*
+  Future<XFile?> _cropImage() async {
+    if (pickedFile != null) {
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile!.path,
+//      sourcePath:
+//          XFile((await picker.pickImage(source: ImageSource.gallery))!.path)
+//              .path,
+        compressFormat: ImageCompressFormat.jpg,
+        compressQuality: 100,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+          WebUiSettings(
+            context: context,
+            presentStyle: CropperPresentStyle.dialog,
+            boundary: const CroppieBoundary(
+              width: 520,
+              height: 520,
+            ),
+            viewPort:
+                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
+            enableExif: true,
+            enableZoom: true,
+            showZoomer: true,
+          ),
+        ],
+      );
+      if (croppedFile != null) {
+//        setState(() {
+        CroppedFile? _croppedFile = croppedFile;
+        return XFile(_croppedFile.path);
+//        });
+      }
+    }
+  }
+*/
   Future _getImage(int i) async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CropSample()));
+
+//    pickedFile = await picker.pickImage(source: ImageSource.gallery);
+//    if (pickedFile == null) return;
+    XFile? _image = null; // = await _cropImage();
+    if (_image == null) return;
+
     setState(() {
       if (pickedFile != null) {
-        _image = XFile(pickedFile.path);
+//        _image = XFile(pickedFile.path);
         final imageForFile = File(_image!.path);
         final imageForImage = Image.file(imageForFile);
         if (i == 0) {
@@ -322,21 +373,34 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text('画像を生成する'),
         content: new Text('広告を最後まで視聴すると画像を1回生成できます。'),
         actions: <Widget>[
-          new SimpleDialogOption(child: new Text('Yes'),onPressed: (){Navigator.pop(context, true);},),
-          new SimpleDialogOption(child: new Text('No'),onPressed: (){Navigator.pop(context, false);},),
+          new SimpleDialogOption(
+            child: new Text('Yes'),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+          ),
+          new SimpleDialogOption(
+            child: new Text('No'),
+            onPressed: () {
+              Navigator.pop(context, false);
+            },
+          ),
         ],
       ),
     );
     if (value) {
       print("広告にとぶ");
-      _rewardedAd?.show(onUserEarnedReward:(AdWithoutView ad, RewardItem rewardItem) {
+      _rewardedAd?.show(
+          onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem) {
         print('Reward amount: ${rewardItem.amount}');
-        Navigator.push(context,MaterialPageRoute(builder: (context) =>NextPage(textFieldList, imageList)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NextPage(textFieldList, imageList)));
       });
     } else {
       print("広告にとばない");
     }
-
   }
 
   void showTutorial() {
