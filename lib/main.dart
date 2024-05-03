@@ -96,7 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ? 'ca-app-pub-3940256099942544/5224354917'
       : 'ca-app-pub-3940256099942544/1712485313';
     } else {
-      _adUnitId = 'ca-app-pub-9700455591074338/2708915001';
+      _adUnitId = Platform.isAndroid 
+      ? 'ca-app-pub-9700455591074338/2708915001'
+      : 'ca-app-pub-9700455591074338/7926531754';
     }
 
     _prefs.then((SharedPreferences prefs) {
