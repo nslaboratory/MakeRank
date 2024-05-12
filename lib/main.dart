@@ -289,80 +289,45 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-/*
-  Future<XFile?> _cropImage() async {
-    if (pickedFile != null) {
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: pickedFile!.path,
-//      sourcePath:
-//          XFile((await picker.pickImage(source: ImageSource.gallery))!.path)
-//              .path,
-        compressFormat: ImageCompressFormat.jpg,
-        compressQuality: 100,
-        uiSettings: [
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(
-            title: 'Cropper',
-          ),
-          WebUiSettings(
-            context: context,
-            presentStyle: CropperPresentStyle.dialog,
-            boundary: const CroppieBoundary(
-              width: 520,
-              height: 520,
-            ),
-            viewPort:
-                const CroppieViewPort(width: 480, height: 480, type: 'circle'),
-            enableExif: true,
-            enableZoom: true,
-            showZoomer: true,
-          ),
-        ],
-      );
-      if (croppedFile != null) {
-//        setState(() {
-        CroppedFile? _croppedFile = croppedFile;
-        return XFile(_croppedFile.path);
-//        });
-      }
-    }
-  }
-*/
   Future _getImage(int i) async {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => CropSample()));
+//    Navigator.push(
+//        context, MaterialPageRoute(builder: (context) => CropSample()));
+    var path = await Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => CropSample()));
 
 //    pickedFile = await picker.pickImage(source: ImageSource.gallery);
 //    if (pickedFile == null) return;
     XFile? _image = null; // = await _cropImage();
-    if (_image == null) return;
+//    if (_image == null) return;
+
+    if (path == "") {
+      print('No image selected.');
+      return;
+    } else {
+      _image = XFile(path);
+    }
 
     setState(() {
-      if (pickedFile != null) {
+//      if (pickedFile != null) {
 //        _image = XFile(pickedFile.path);
-        final imageForFile = File(_image!.path);
-        final imageForImage = Image.file(imageForFile);
-        if (i == 0) {
-          _image0 = imageForImage;
-          imageList[0] = _image0;
-        } else if (i == 1) {
-          _image1 = imageForImage;
-          imageList[1] = _image1;
-        } else if (i == 2) {
-          _image2 = imageForImage;
-          imageList[2] = _image2;
-        } else if (i == 3) {
-          _image3 = imageForImage;
-          imageList[3] = _image3;
-        }
-      } else {
-        print('No image selected.');
+      final imageForFile = File(_image!.path);
+      final imageForImage = Image.file(imageForFile);
+      if (i == 0) {
+        _image0 = imageForImage;
+        imageList[0] = _image0;
+      } else if (i == 1) {
+        _image1 = imageForImage;
+        imageList[1] = _image1;
+      } else if (i == 2) {
+        _image2 = imageForImage;
+        imageList[2] = _image2;
+      } else if (i == 3) {
+        _image3 = imageForImage;
+        imageList[3] = _image3;
       }
+//      } else {
+//        print('No image selected.');
+//      }
     });
   }
 
