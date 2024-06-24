@@ -16,6 +16,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool visiblerank = true;
+var rank1Txt = "";
 
 class GlobalMethod {
   Future<void> saveData(bool visiblerank) async {
@@ -113,6 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     GlobalMethod().loadData();
+    rank1Txt = visiblerank ? "1位" : "";
+
     if (isDebug) {
       _adUnitId = Platform.isAndroid
           ? 'ca-app-pub-3940256099942544/5224354917'
@@ -178,7 +181,12 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Settings()),
-              );
+              ).then((value) {
+                setState(() {
+                  rank1Txt = visiblerank ? "1位" : "";
+                  print(rank1Txt);
+                });
+              });
             },
           )
         ],
@@ -204,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     textFieldList[0] = text;
                   },
                   decoration: InputDecoration(
-                      labelText: "1位",
+                      labelText: rank1Txt,
                       floatingLabelBehavior: FloatingLabelBehavior.always),
                 )),
             ListTile(
@@ -296,7 +304,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        NextPage(textFieldList, imageList)));
+                                        NextPage(textFieldList, imageList))
+                                    );
                           }
                         }
                       },
