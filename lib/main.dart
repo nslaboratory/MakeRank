@@ -26,7 +26,7 @@ class GlobalMethod {
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getBool("VisibleRank") == null) {
-      saveData(true);
+      await saveData(true);
     }
     visiblerank = prefs.getBool("VisibleRank")!;
   }
