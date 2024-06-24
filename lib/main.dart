@@ -13,6 +13,24 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+bool visiblerank = true;
+
+class GlobalMethod {
+  Future<void> saveData(bool visiblerank) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("VisibleRank", visiblerank);
+  }
+
+  Future<void> loadData() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool("VisibleRank") == null) {
+      saveData(true);
+    }
+    visiblerank = prefs.getBool("VisibleRank")!;
+  }
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,6 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    GlobalMethod().loadData();
     if (isDebug) {
       _adUnitId = Platform.isAndroid
           ? 'ca-app-pub-3940256099942544/5224354917'
@@ -158,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Settings()),
+                MaterialPageRoute(builder: (context) => Settings()),
               );
             },
           )

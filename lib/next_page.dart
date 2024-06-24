@@ -9,7 +9,6 @@ import 'package:make_rank/settings.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 class NextPage extends StatefulWidget {
   NextPage(this.names, this.imgs);
 
@@ -43,76 +42,75 @@ class _MyPageState extends State<NextPage> {
   Widget platformStack(bool isIOS) {
     if (isIOS) {
       print(isIOS);
-      return 
-          GridView.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 3.0,
-            mainAxisSpacing: 3.0,
-            padding: EdgeInsets.all(0.0),
-            shrinkWrap: true,
-            children: [
-              GridTile(
-                footer: GridTileBar(
-                  backgroundColor: Colors.black54,
-                  title: Text(
-                    widget.names[0],
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text("1位"),
-                ),
-                child: Image(
-                  image: widget.imgs[0]!.image,
-                  fit: BoxFit.cover,
-                ),
+      return GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 3.0,
+        mainAxisSpacing: 3.0,
+        padding: EdgeInsets.all(0.0),
+        shrinkWrap: true,
+        children: [
+          GridTile(
+            footer: GridTileBar(
+              backgroundColor: Colors.black54,
+              title: Text(
+                widget.names[0],
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              GridTile(
-                footer: GridTileBar(
-                  backgroundColor: Colors.black54,
-                  title: Text(
-                    widget.names[1],
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text("2位"),
-                ),
-                child: Image(
-                  image: widget.imgs[1]!.image,
-                  fit: BoxFit.cover,
-                ),
+              subtitle: Text("1位"),
+            ),
+            child: Image(
+              image: widget.imgs[0]!.image,
+              fit: BoxFit.cover,
+            ),
+          ),
+          GridTile(
+            footer: GridTileBar(
+              backgroundColor: Colors.black54,
+              title: Text(
+                widget.names[1],
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              GridTile(
-                footer: GridTileBar(
-                  backgroundColor: Colors.black54,
-                  title: Text(
-                    widget.names[2],
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text("3位"),
-                ),
-                child: Image(
-                  image: widget.imgs[2]!.image,
-                  fit: BoxFit.cover,
-                ),
+              subtitle: Text("2位"),
+            ),
+            child: Image(
+              image: widget.imgs[1]!.image,
+              fit: BoxFit.cover,
+            ),
+          ),
+          GridTile(
+            footer: GridTileBar(
+              backgroundColor: Colors.black54,
+              title: Text(
+                widget.names[2],
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              GridTile(
-                footer: GridTileBar(
-                  backgroundColor: Colors.black54,
-                  title: Text(
-                    widget.names[3],
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text("4位"),
-                ),
-                child: Image(
-                  image: widget.imgs[3]!.image,
-                  fit: BoxFit.cover,
-                ),
-              )
-            ],
-          );
+              subtitle: Text("3位"),
+            ),
+            child: Image(
+              image: widget.imgs[2]!.image,
+              fit: BoxFit.cover,
+            ),
+          ),
+          GridTile(
+            footer: GridTileBar(
+              backgroundColor: Colors.black54,
+              title: Text(
+                widget.names[3],
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text("4位"),
+            ),
+            child: Image(
+              image: widget.imgs[3]!.image,
+              fit: BoxFit.cover,
+            ),
+          )
+        ],
+      );
     } else {
       return Stack(
         alignment: AlignmentDirectional.bottomEnd,
@@ -215,7 +213,7 @@ class _MyPageState extends State<NextPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Settings()),
+                MaterialPageRoute(builder: (context) => Settings()),
               );
             },
           )
