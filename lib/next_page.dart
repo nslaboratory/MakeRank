@@ -216,7 +216,15 @@ class _MyPageState extends State<NextPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Settings()),
-              );
+              ).then((value) {
+                setState(() {
+                  rank1Txt = visiblerank ? "1位" : "";
+                  rank2Txt = visiblerank ? "2位" : "";
+                  rank3Txt = visiblerank ? "3位" : "";
+                  rank4Txt = visiblerank ? "4位" : "";
+                  print(rank1Txt);
+                });
+              });
             },
           )
         ],

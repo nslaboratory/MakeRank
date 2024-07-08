@@ -331,10 +331,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                   _showDialog();
                                 } else {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NextPage(
-                                              textFieldList, imageList)));
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => NextPage(
+                                                  textFieldList, imageList)))
+                                      .then((value) {
+                                    setState(() {
+                                      rank1Txt = visiblerank ? "1位" : "";
+                                      rank2Txt = visiblerank ? "2位" : "";
+                                      rank3Txt = visiblerank ? "3位" : "";
+                                      rank4Txt = visiblerank ? "4位" : "";
+                                      print(rank1Txt);
+                                    });
+                                  });
                                 }
                               }
                             },
@@ -417,9 +426,18 @@ class _MyHomePageState extends State<MyHomePage> {
           onUserEarnedReward: (AdWithoutView ad, RewardItem rewardItem) {
         print('Reward amount: ${rewardItem.amount}');
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NextPage(textFieldList, imageList)));
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NextPage(textFieldList, imageList)))
+            .then((value) {
+          setState(() {
+            rank1Txt = visiblerank ? "1位" : "";
+            rank2Txt = visiblerank ? "2位" : "";
+            rank3Txt = visiblerank ? "3位" : "";
+            rank4Txt = visiblerank ? "4位" : "";
+            print(rank1Txt);
+          });
+        });
       });
     } else {
       print("広告にとばない");
