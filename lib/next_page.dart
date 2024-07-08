@@ -8,6 +8,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:make_rank/settings.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:make_rank/main.dart';
 
 class NextPage extends StatefulWidget {
   NextPage(this.names, this.imgs);
@@ -39,6 +40,7 @@ class _MyPageState extends State<NextPage> {
     ]);
   }
 
+/*
   Widget platformStack(bool isIOS) {
     if (isIOS) {
       print(isIOS);
@@ -200,7 +202,7 @@ class _MyPageState extends State<NextPage> {
       );
     }
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -245,7 +247,7 @@ class _MyPageState extends State<NextPage> {
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text("1位"),
+                          subtitle: (visiblerank) ? Text("1位") : Text(""),
                         ),
                         child: Image(
                           image: widget.imgs[0]!.image,
@@ -260,7 +262,7 @@ class _MyPageState extends State<NextPage> {
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text("2位"),
+                          subtitle: (visiblerank) ? Text("2位") : Text(""),
                         ),
                         child: Image(
                           image: widget.imgs[1]!.image,
@@ -275,7 +277,7 @@ class _MyPageState extends State<NextPage> {
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text("3位"),
+                          subtitle: (visiblerank) ? Text("3位") : Text(""),
                         ),
                         child: Image(
                           image: widget.imgs[2]!.image,
@@ -290,7 +292,7 @@ class _MyPageState extends State<NextPage> {
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: Text("4位"),
+                          subtitle: (visiblerank) ? Text("4位") : Text(""),
                         ),
                         child: Image(
                           image: widget.imgs[3]!.image,
