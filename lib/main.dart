@@ -17,6 +17,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 bool visiblerank = true;
 var rank1Txt = "";
+var rank2Txt = "";
+var rank3Txt = "";
+var rank4Txt = "";
+
+StreamController<bool> _controller = StreamController<bool>.broadcast();
 
 class GlobalMethod {
   Future<void> saveData(bool visiblerank) async {
@@ -30,6 +35,11 @@ class GlobalMethod {
       await saveData(true);
     }
     visiblerank = prefs.getBool("VisibleRank")!;
+    rank1Txt = visiblerank ? "1位" : "";
+    rank2Txt = visiblerank ? "2位" : "";
+    rank3Txt = visiblerank ? "3位" : "";
+    rank4Txt = visiblerank ? "4位" : "";
+    _controller.add(visiblerank);
   }
 }
 
@@ -111,10 +121,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var _adUnitId = "";
 
+//  Future<void> initLoadData() async {
+//    await GlobalMethod().loadData();
+//  }
+
   @override
   void initState() {
     GlobalMethod().loadData();
-    rank1Txt = visiblerank ? "1位" : "";
+//    initLoadData();
+//    print("visiblerank : " + visiblerank.toString());
+//    setState(() {
+//      rank1Txt = visiblerank ? "1位" : "";
+//    });
 
     if (isDebug) {
       _adUnitId = Platform.isAndroid
@@ -184,6 +202,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ).then((value) {
                 setState(() {
                   rank1Txt = visiblerank ? "1位" : "";
+                  rank2Txt = visiblerank ? "2位" : "";
+                  rank3Txt = visiblerank ? "3位" : "";
+                  rank4Txt = visiblerank ? "4位" : "";
                   print(rank1Txt);
                 });
               });
@@ -192,128 +213,137 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       backgroundColor: Color(0xFFF2F2F7),
-      body: Stack(children: [
-        ListView(
-          children: [
-            ListTile(
-                leading: GestureDetector(
-                  key: keyImage,
-                  child: _image0 == null
-                      ? const Icon(Icons.image, size: 30)
-                      : _image0,
-                  onTap: () {
-                    _getImage(0);
-                  },
-                ),
-                title: TextField(
-                  key: keyTextBox,
-                  controller: controller0,
-                  onChanged: (text) {
-                    textFieldList[0] = text;
-                  },
-                  decoration: InputDecoration(
-                      labelText: rank1Txt,
-                      floatingLabelBehavior: FloatingLabelBehavior.always),
-                )),
-            ListTile(
-                leading: GestureDetector(
-//                  key: keyImage,
-                  child: _image1 == null
-                      ? const Icon(Icons.image, size: 30)
-                      : _image1,
-                  onTap: () {
-                    _getImage(1);
-                  },
-                ),
-                title: TextField(
-                  controller: controller1,
-                  onChanged: (text) {
-                    textFieldList[1] = text;
-                  },
-                  decoration: const InputDecoration(
-                      labelText: "2位",
-                      floatingLabelBehavior: FloatingLabelBehavior.always),
-                )),
-            ListTile(
-                leading: GestureDetector(
-                  child: _image2 == null
-                      ? const Icon(Icons.image, size: 30)
-                      : _image2,
-                  onTap: () {
-                    _getImage(2);
-                  },
-                ),
-                title: TextField(
-                  controller: controller2,
-                  onChanged: (text) {
-                    textFieldList[2] = text;
-                  },
-                  decoration: const InputDecoration(
-                      labelText: "3位",
-                      floatingLabelBehavior: FloatingLabelBehavior.always),
-                )),
-            ListTile(
-                leading: GestureDetector(
-                  child: _image3 == null
-                      ? const Icon(Icons.image, size: 30)
-                      : _image3,
-                  onTap: () {
-                    _getImage(3);
-                  },
-                ),
-                title: TextField(
-                  controller: controller3,
-                  onChanged: (text) {
-                    textFieldList[3] = text;
-                  },
-                  decoration: const InputDecoration(
-                      labelText: "4位",
-                      floatingLabelBehavior: FloatingLabelBehavior.always),
-                )),
-          ],
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
-            child: SizedBox(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.06,
-              child: FilledButton(
-                key: keyButton,
-                style: FilledButton.styleFrom(shape: BeveledRectangleBorder()),
-                child: const Text(
-                  "画像を生成",
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: textFieldList.contains("") ||
-                        imageList.contains(null)
-                    ? null
-                    : () async {
-                        final connectivityResult =
-                            await (Connectivity().checkConnectivity());
-                        if (connectivityResult == ConnectivityResult.none) {
-                          Fluttertoast.showToast(msg: "インターネット接続がありません");
-                        } else {
-                          print(textFieldList);
-                          print(imageList);
-                          if (enableAd) {
-                            _showDialog();
-                          } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        NextPage(textFieldList, imageList))
-                                    );
-                          }
-                        }
-                      },
+      body: StreamBuilder(
+          stream: _controller.stream,
+          builder: (context, snapshot) {
+            return Stack(children: [
+              ListView(
+                children: [
+                  ListTile(
+                      leading: GestureDetector(
+                        key: keyImage,
+                        child: _image0 == null
+                            ? const Icon(Icons.image, size: 30)
+                            : _image0,
+                        onTap: () {
+                          _getImage(0);
+                        },
+                      ),
+                      title: TextField(
+                        key: keyTextBox,
+                        controller: controller0,
+                        onChanged: (text) {
+                          textFieldList[0] = text;
+                        },
+                        decoration: InputDecoration(
+                            labelText: rank1Txt,
+                            floatingLabelBehavior:
+                                FloatingLabelBehavior.always),
+                      )),
+                  ListTile(
+                      leading: GestureDetector(
+                        //                  key: keyImage,
+                        child: _image1 == null
+                            ? const Icon(Icons.image, size: 30)
+                            : _image1,
+                        onTap: () {
+                          _getImage(1);
+                        },
+                      ),
+                      title: TextField(
+                        controller: controller1,
+                        onChanged: (text) {
+                          textFieldList[1] = text;
+                        },
+                        decoration: InputDecoration(
+                            labelText: rank2Txt,
+                            floatingLabelBehavior:
+                                FloatingLabelBehavior.always),
+                      )),
+                  ListTile(
+                      leading: GestureDetector(
+                        child: _image2 == null
+                            ? const Icon(Icons.image, size: 30)
+                            : _image2,
+                        onTap: () {
+                          _getImage(2);
+                        },
+                      ),
+                      title: TextField(
+                        controller: controller2,
+                        onChanged: (text) {
+                          textFieldList[2] = text;
+                        },
+                        decoration: InputDecoration(
+                            labelText: rank3Txt,
+                            floatingLabelBehavior:
+                                FloatingLabelBehavior.always),
+                      )),
+                  ListTile(
+                      leading: GestureDetector(
+                        child: _image3 == null
+                            ? const Icon(Icons.image, size: 30)
+                            : _image3,
+                        onTap: () {
+                          _getImage(3);
+                        },
+                      ),
+                      title: TextField(
+                        controller: controller3,
+                        onChanged: (text) {
+                          textFieldList[3] = text;
+                        },
+                        decoration: InputDecoration(
+                            labelText: rank4Txt,
+                            floatingLabelBehavior:
+                                FloatingLabelBehavior.always),
+                      )),
+                ],
               ),
-            ),
-          ),
-        )
-      ]),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 30),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    child: FilledButton(
+                      key: keyButton,
+                      style: FilledButton.styleFrom(
+                          shape: BeveledRectangleBorder()),
+                      child: const Text(
+                        "画像を生成",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      onPressed: textFieldList.contains("") ||
+                              imageList.contains(null)
+                          ? null
+                          : () async {
+                              final connectivityResult =
+                                  await (Connectivity().checkConnectivity());
+                              if (connectivityResult ==
+                                  ConnectivityResult.none) {
+                                Fluttertoast.showToast(msg: "インターネット接続がありません");
+                              } else {
+                                print(textFieldList);
+                                print(imageList);
+                                if (enableAd) {
+                                  _showDialog();
+                                } else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => NextPage(
+                                              textFieldList, imageList)));
+                                }
+                              }
+                            },
+                    ),
+                  ),
+                ),
+              )
+            ]);
+          }),
     );
   }
 
