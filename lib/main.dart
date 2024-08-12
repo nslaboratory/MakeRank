@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:ui';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -103,6 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey keyButton = GlobalKey();
   GlobalKey keyImage = GlobalKey();
   GlobalKey keyTextBox = GlobalKey();
+  GlobalKey keySettings = GlobalKey();
+
 
   final picker = ImagePicker();
 
@@ -193,6 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: [
           IconButton(
+            key: keySettings,
             icon: const Icon(Icons.settings),
             tooltip: '設定',
             onPressed: () {
@@ -234,6 +238,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: controller0,
                         onChanged: (text) {
                           textFieldList[0] = text;
+                          setState(() {
+                            
+                          });
                         },
                         decoration: InputDecoration(
                             labelText: rank1Txt,
@@ -254,6 +261,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: controller1,
                         onChanged: (text) {
                           textFieldList[1] = text;
+                          setState(() {
+                            
+                          });
                         },
                         decoration: InputDecoration(
                             labelText: rank2Txt,
@@ -273,6 +283,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: controller2,
                         onChanged: (text) {
                           textFieldList[2] = text;
+                          setState(() {
+                            
+                          });
                         },
                         decoration: InputDecoration(
                             labelText: rank3Txt,
@@ -292,6 +305,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: controller3,
                         onChanged: (text) {
                           textFieldList[3] = text;
+                          setState(() {
+                            
+                          });
                         },
                         decoration: InputDecoration(
                             labelText: rank4Txt,
@@ -315,38 +331,36 @@ class _MyHomePageState extends State<MyHomePage> {
                         "画像を生成",
                         style: TextStyle(fontSize: 20),
                       ),
-                      onPressed: textFieldList.contains("") ||
-                              imageList.contains(null)
-                          ? null
-                          : () async {
-                              final connectivityResult =
-                                  await (Connectivity().checkConnectivity());
-                              if (connectivityResult ==
-                                  ConnectivityResult.none) {
-                                Fluttertoast.showToast(msg: "インターネット接続がありません");
-                              } else {
-                                print(textFieldList);
-                                print(imageList);
-                                if (enableAd) {
-                                  _showDialog();
-                                } else {
-                                  Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => NextPage(
-                                                  textFieldList, imageList)))
-                                      .then((value) {
-                                    setState(() {
-                                      rank1Txt = visiblerank ? "1位" : "";
-                                      rank2Txt = visiblerank ? "2位" : "";
-                                      rank3Txt = visiblerank ? "3位" : "";
-                                      rank4Txt = visiblerank ? "4位" : "";
-                                      print(rank1Txt);
-                                    });
-                                  });
-                                }
-                              }
-                            },
+
+                      onPressed: enableBtn() ? () async {
+                          final connectivityResult =
+                              await (Connectivity().checkConnectivity());
+                          if (connectivityResult ==
+                              ConnectivityResult.none) {
+                            Fluttertoast.showToast(msg: "インターネット接続がありません");
+                          } else {
+                            print(textFieldList);
+                            print(imageList);
+                            if (enableAd) {
+                              _showDialog();
+                            } else {
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => NextPage(
+                                              textFieldList, imageList)))
+                                  .then((value) {
+                                setState(() {
+                                  rank1Txt = visiblerank ? "1位" : "";
+                                  rank2Txt = visiblerank ? "2位" : "";
+                                  rank3Txt = visiblerank ? "3位" : "";
+                                  rank4Txt = visiblerank ? "4位" : "";
+                                  print(rank1Txt);
+                                });
+                              });
+                            }
+                          }
+                        } : null,
                     ),
                   ),
                 ),
@@ -354,6 +368,50 @@ class _MyHomePageState extends State<MyHomePage> {
             ]);
           }),
     );
+  }
+
+  bool enableBtn() {
+    List<int> imagelistflgs = [];
+    for (var value in imageList) {
+      if (value != null) {
+        imagelistflgs.add(1);
+      } else {
+        imagelistflgs.add(0);
+      }
+    }
+    // tmpにはn-1回目のimagelistflgsの値を入れる
+    var tmp = 0;
+    var count = 0;
+    for (int i=0; i<imagelistflgs.length; i++) {
+      print("i=" + i.toString());
+      print(textFieldList[i]);
+      if (imagelistflgs[i] == 1 && (textFieldList[i].length == 0)) {
+        return false;
+      } 
+      
+      if (imagelistflgs[i] == 0 && (textFieldList[i].length != 0)) {
+        return false;
+      }
+
+      if (imagelistflgs[i] == 0) {
+        count += 1;
+      }
+      if (count == imagelistflgs.length){
+        // 全てimageがnullの場合
+        return false;
+      }
+
+      if (i == 0) {
+        tmp = imagelistflgs[i];
+        continue;
+      }
+      if (tmp < imagelistflgs[i]) {
+        // null -> image になった場合
+        return false;
+      }
+      tmp = imagelistflgs[i];
+    }
+    return true;
   }
 
   Future _getImage(int i) async {
@@ -557,6 +615,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Text(
                     "すべての項目が入力されていることを確認し\n「画像を生成」をタップします\n※インターネット接続が必要です",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "keySettings",
+        keyTarget: keySettings,
+        alignSkip: Alignment.bottomRight,
+        enableOverlayTab: true,
+        shape: ShapeLightFocus.RRect,
+        radius: 10,
+        contents: [
+          TargetContent(
+            align: ContentAlign.left,
+            padding: EdgeInsets.only(top: 40, right: 10),
+            builder: (context, controller) {
+              return const Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Text(
+                    "その他の設定項目は、\nこのボタンから設定できます",
                     style: TextStyle(
                       color: Colors.white,
                     ),
