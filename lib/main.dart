@@ -293,287 +293,294 @@ class _MyHomePageState extends State<MyHomePage> {
           stream: _controller.stream,
           builder: (context, snapshot) {
             return Stack(children: [
-              (gridSize == GridSize.grid2x2)
-                  ? ListView(
-                      children: [
-                        ListTile(
-                            leading: GestureDetector(
-                              key: keyImage,
-                              child: _image0 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image0,
-                              onTap: () {
-                                _getImage(0);
-                              },
-                            ),
-                            title: TextField(
-                              key: keyTextBox,
-                              controller: controller0,
-                              onChanged: (text) {
-                                textFieldList[0] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank1Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              //                  key: keyImage,
-                              child: _image1 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image1,
-                              onTap: () {
-                                _getImage(1);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller1,
-                              onChanged: (text) {
-                                textFieldList[1] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank2Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              child: _image2 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image2,
-                              onTap: () {
-                                _getImage(2);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller2,
-                              onChanged: (text) {
-                                textFieldList[2] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank3Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              child: _image3 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image3,
-                              onTap: () {
-                                _getImage(3);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller3,
-                              onChanged: (text) {
-                                textFieldList[3] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank4Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                      ],
-                    )
-                  : ListView(
-                      children: [
-                        ListTile(
-                            leading: GestureDetector(
-                              key: keyImage,
-                              child: _image0 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image0,
-                              onTap: () {
-                                _getImage(0);
-                              },
-                            ),
-                            title: TextField(
-                              key: keyTextBox,
-                              controller: controller0,
-                              onChanged: (text) {
-                                textFieldList[0] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank1Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              //                  key: keyImage,
-                              child: _image1 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image1,
-                              onTap: () {
-                                _getImage(1);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller1,
-                              onChanged: (text) {
-                                textFieldList[1] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank2Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              child: _image2 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image2,
-                              onTap: () {
-                                _getImage(2);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller2,
-                              onChanged: (text) {
-                                textFieldList[2] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank3Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              key: keyImage,
-                              child: _image3 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image3,
-                              onTap: () {
-                                _getImage(3);
-                              },
-                            ),
-                            title: TextField(
-                              key: keyTextBox,
-                              controller: controller3,
-                              onChanged: (text) {
-                                textFieldList[3] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank4Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              //                  key: keyImage,
-                              child: _image4 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image4,
-                              onTap: () {
-                                _getImage(4);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller4,
-                              onChanged: (text) {
-                                textFieldList[4] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank5Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              child: _image5 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image5,
-                              onTap: () {
-                                _getImage(5);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller5,
-                              onChanged: (text) {
-                                textFieldList[5] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank6Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              key: keyImage,
-                              child: _image6 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image6,
-                              onTap: () {
-                                _getImage(6);
-                              },
-                            ),
-                            title: TextField(
-                              key: keyTextBox,
-                              controller: controller6,
-                              onChanged: (text) {
-                                textFieldList[6] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank7Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              //                  key: keyImage,
-                              child: _image7 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image7,
-                              onTap: () {
-                                _getImage(7);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller7,
-                              onChanged: (text) {
-                                textFieldList[7] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank8Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                        ListTile(
-                            leading: GestureDetector(
-                              child: _image8 == null
-                                  ? const Icon(Icons.image, size: 30)
-                                  : _image8,
-                              onTap: () {
-                                _getImage(8);
-                              },
-                            ),
-                            title: TextField(
-                              controller: controller8,
-                              onChanged: (text) {
-                                textFieldList[8] = text;
-                                setState(() {});
-                              },
-                              decoration: InputDecoration(
-                                  labelText: rank9Txt,
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always),
-                            )),
-                      ],
-                    ),
+//            return Column(children: [
+//              (gridSize == GridSize.grid2x2)
+//                  ?
+              SizedBox(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.75,
+                child: ListView(
+                    children: (gridSize == GridSize.grid2x2)
+                        ? [
+                            ListTile(
+                                leading: GestureDetector(
+                                  key: keyImage,
+                                  child: _image0 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image0,
+                                  onTap: () {
+                                    _getImage(0);
+                                  },
+                                ),
+                                title: TextField(
+                                  key: keyTextBox,
+                                  controller: controller0,
+                                  onChanged: (text) {
+                                    textFieldList[0] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank1Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  //                  key: keyImage,
+                                  child: _image1 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image1,
+                                  onTap: () {
+                                    _getImage(1);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller1,
+                                  onChanged: (text) {
+                                    textFieldList[1] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank2Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  child: _image2 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image2,
+                                  onTap: () {
+                                    _getImage(2);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller2,
+                                  onChanged: (text) {
+                                    textFieldList[2] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank3Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  child: _image3 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image3,
+                                  onTap: () {
+                                    _getImage(3);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller3,
+                                  onChanged: (text) {
+                                    textFieldList[3] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank4Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                ))
+                          ]
+                        : [
+                            ListTile(
+                                leading: GestureDetector(
+                                  key: keyImage,
+                                  child: _image0 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image0,
+                                  onTap: () {
+                                    _getImage(0);
+                                  },
+                                ),
+                                title: TextField(
+                                  //                                style: TextStyle(
+                                  //                                  fontSize: 15.0,
+                                  //                                ),
+                                  key: keyTextBox,
+                                  controller: controller0,
+                                  onChanged: (text) {
+                                    textFieldList[0] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank1Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  //                  key: keyImage,
+                                  child: _image1 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image1,
+                                  onTap: () {
+                                    _getImage(1);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller1,
+                                  onChanged: (text) {
+                                    textFieldList[1] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank2Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  child: _image2 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image2,
+                                  onTap: () {
+                                    _getImage(2);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller2,
+                                  onChanged: (text) {
+                                    textFieldList[2] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank3Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  //                                key: keyImage,
+                                  child: _image3 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image3,
+                                  onTap: () {
+                                    _getImage(3);
+                                  },
+                                ),
+                                title: TextField(
+                                  //                                key: keyTextBox,
+                                  controller: controller3,
+                                  onChanged: (text) {
+                                    textFieldList[3] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank4Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  //                  key: keyImage,
+                                  child: _image4 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image4,
+                                  onTap: () {
+                                    _getImage(4);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller4,
+                                  onChanged: (text) {
+                                    textFieldList[4] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank5Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  child: _image5 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image5,
+                                  onTap: () {
+                                    _getImage(5);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller5,
+                                  onChanged: (text) {
+                                    textFieldList[5] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank6Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  //                                key: keyImage,
+                                  child: _image6 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image6,
+                                  onTap: () {
+                                    _getImage(6);
+                                  },
+                                ),
+                                title: TextField(
+                                  //                                key: keyTextBox,
+                                  controller: controller6,
+                                  onChanged: (text) {
+                                    textFieldList[6] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank7Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  //                  key: keyImage,
+                                  child: _image7 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image7,
+                                  onTap: () {
+                                    _getImage(7);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller7,
+                                  onChanged: (text) {
+                                    textFieldList[7] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank8Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                )),
+                            ListTile(
+                                leading: GestureDetector(
+                                  child: _image8 == null
+                                      ? const Icon(Icons.image, size: 30)
+                                      : _image8,
+                                  onTap: () {
+                                    _getImage(8);
+                                  },
+                                ),
+                                title: TextField(
+                                  controller: controller8,
+                                  onChanged: (text) {
+                                    textFieldList[8] = text;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: rank9Txt,
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always),
+                                ))
+                          ]),
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
@@ -707,7 +714,11 @@ class _MyHomePageState extends State<MyHomePage> {
 //      if (pickedFile != null) {
 //        _image = XFile(pickedFile.path);
       final imageForFile = File(_image!.path);
-      final imageForImage = Image.file(imageForFile);
+      final imageForImage = Image.file(
+        imageForFile,
+//        height: 30,
+//        width: 30,
+      );
       if (i == 0) {
         _image0 = imageForImage;
         imageList[0] = _image0;
