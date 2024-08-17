@@ -11,10 +11,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:make_rank/main.dart';
 
 class NextPage extends StatefulWidget {
-  NextPage(this.names, this.imgs);
+  NextPage(this.names, this.imgs, this.imgflgs);
 
   final List<String> names;
   final List<Image?> imgs;
+  final List<int> imgflgs;
 
   @override
   State<NextPage> createState() => _MyPageState();
@@ -248,62 +249,82 @@ class _MyPageState extends State<NextPage> {
                     shrinkWrap: true,
                     children: [
                       GridTile(
-                        footer: GridTileBar(
-                          backgroundColor: Colors.black54,
-                          title: Text(
-                            widget.names[0],
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: (visiblerank) ? Text("1位") : Text(""),
-                        ),
+                        footer: (widget.imgflgs[0] == 0)
+                            ? null
+                            : GridTileBar(
+                                backgroundColor: Colors.black54,
+                                title: Text(
+                                  widget.names[0],
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: (visiblerank) ? Text("1位") : Text(""),
+                              ),
                         child: Image(
-                          image: widget.imgs[0]!.image,
+                          image: (widget.imgflgs[0] == 1)
+                              ? widget.imgs[0]!.image
+                              : Image.asset("assets/null.png").image,
                           fit: BoxFit.cover,
                         ),
                       ),
                       GridTile(
-                        footer: GridTileBar(
-                          backgroundColor: Colors.black54,
-                          title: Text(
-                            widget.names[1],
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: (visiblerank) ? Text("2位") : Text(""),
-                        ),
+                        footer: (widget.imgflgs[1] == 0)
+                            ? null
+                            : GridTileBar(
+                                backgroundColor: Colors.black54,
+                                title: Text(
+                                  widget.names[1],
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: (visiblerank) ? Text("2位") : Text(""),
+                              ),
                         child: Image(
-                          image: widget.imgs[1]!.image,
+                          image: (widget.imgflgs[1] == 1)
+                              ? widget.imgs[1]!.image
+                              : Image.asset("assets/null.png").image,
                           fit: BoxFit.cover,
                         ),
                       ),
                       GridTile(
-                        footer: GridTileBar(
-                          backgroundColor: Colors.black54,
-                          title: Text(
-                            widget.names[2],
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: (visiblerank) ? Text("3位") : Text(""),
-                        ),
+                        footer: (widget.imgflgs[2] == 0)
+                            ? null
+                            : GridTileBar(
+                                backgroundColor: Colors.black54,
+                                title: Text(
+                                  widget.names[2],
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: (visiblerank) ? Text("3位") : Text(""),
+                              ),
                         child: Image(
-                          image: widget.imgs[2]!.image,
+                          image: (widget.imgflgs[2] == 1)
+                              ? widget.imgs[2]!.image
+                              : Image.asset("assets/null.png").image,
                           fit: BoxFit.cover,
                         ),
                       ),
                       GridTile(
-                        footer: GridTileBar(
-                          backgroundColor: Colors.black54,
-                          title: Text(
-                            widget.names[3],
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: (visiblerank) ? Text("4位") : Text(""),
-                        ),
+                        footer: (widget.imgflgs[3] == 0)
+                            ? null
+                            : GridTileBar(
+                                backgroundColor: Colors.black54,
+                                title: Text(
+                                  widget.names[3],
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: (visiblerank) ? Text("4位") : Text(""),
+                              ),
                         child: Image(
-                          image: widget.imgs[3]!.image,
+                          image: (widget.imgflgs[3] == 1)
+                              ? widget.imgs[3]!.image
+                              : Image.asset("assets/null.png").image,
                           fit: BoxFit.cover,
                         ),
                       )

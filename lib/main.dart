@@ -106,7 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey keyTextBox = GlobalKey();
   GlobalKey keySettings = GlobalKey();
 
-
   final picker = ImagePicker();
 
   final controller0 = TextEditingController();
@@ -116,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var textFieldList = ["", "", "", ""];
   List<Image?> imageList = [null, null, null, null];
+  List<int> imagelistflgs = [0, 0, 0, 0];
 
   RewardedAd? _rewardedAd;
 
@@ -238,9 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: controller0,
                         onChanged: (text) {
                           textFieldList[0] = text;
-                          setState(() {
-                            
-                          });
+                          setState(() {});
                         },
                         decoration: InputDecoration(
                             labelText: rank1Txt,
@@ -261,9 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: controller1,
                         onChanged: (text) {
                           textFieldList[1] = text;
-                          setState(() {
-                            
-                          });
+                          setState(() {});
                         },
                         decoration: InputDecoration(
                             labelText: rank2Txt,
@@ -283,9 +279,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: controller2,
                         onChanged: (text) {
                           textFieldList[2] = text;
-                          setState(() {
-                            
-                          });
+                          setState(() {});
                         },
                         decoration: InputDecoration(
                             labelText: rank3Txt,
@@ -305,9 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         controller: controller3,
                         onChanged: (text) {
                           textFieldList[3] = text;
-                          setState(() {
-                            
-                          });
+                          setState(() {});
                         },
                         decoration: InputDecoration(
                             labelText: rank4Txt,
@@ -331,36 +323,38 @@ class _MyHomePageState extends State<MyHomePage> {
                         "画像を生成",
                         style: TextStyle(fontSize: 20),
                       ),
-
-                      onPressed: enableBtn() ? () async {
-                          final connectivityResult =
-                              await (Connectivity().checkConnectivity());
-                          if (connectivityResult ==
-                              ConnectivityResult.none) {
-                            Fluttertoast.showToast(msg: "インターネット接続がありません");
-                          } else {
-                            print(textFieldList);
-                            print(imageList);
-                            if (enableAd) {
-                              _showDialog();
-                            } else {
-                              Navigator.push(
+                      onPressed: enableBtn()
+                          ? () async {
+                              final connectivityResult =
+                                  await (Connectivity().checkConnectivity());
+                              if (connectivityResult ==
+                                  ConnectivityResult.none) {
+                                Fluttertoast.showToast(msg: "インターネット接続がありません");
+                              } else {
+                                print(textFieldList);
+                                print(imageList);
+                                if (enableAd) {
+                                  _showDialog();
+                                } else {
+                                  Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => NextPage(
-                                              textFieldList, imageList)))
-                                  .then((value) {
-                                setState(() {
-                                  rank1Txt = visiblerank ? "1位" : "";
-                                  rank2Txt = visiblerank ? "2位" : "";
-                                  rank3Txt = visiblerank ? "3位" : "";
-                                  rank4Txt = visiblerank ? "4位" : "";
-                                  print(rank1Txt);
-                                });
-                              });
+                                              textFieldList,
+                                              imageList,
+                                              imagelistflgs))).then((value) {
+                                    setState(() {
+                                      rank1Txt = visiblerank ? "1位" : "";
+                                      rank2Txt = visiblerank ? "2位" : "";
+                                      rank3Txt = visiblerank ? "3位" : "";
+                                      rank4Txt = visiblerank ? "4位" : "";
+                                      print(rank1Txt);
+                                    });
+                                  });
+                                }
+                              }
                             }
-                          }
-                        } : null,
+                          : null,
                     ),
                   ),
                 ),
@@ -371,24 +365,30 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   bool enableBtn() {
-    List<int> imagelistflgs = [];
-    for (var value in imageList) {
+/*    for (var value in imageList) {
       if (value != null) {
         imagelistflgs.add(1);
       } else {
         imagelistflgs.add(0);
       }
+    }*/
+    for (int i = 0; i < imageList.length; i++) {
+      if (imageList[i] != null) {
+        imagelistflgs[i] = 1;
+      } else {
+        imagelistflgs[i] = 0;
+      }
     }
     // tmpにはn-1回目のimagelistflgsの値を入れる
     var tmp = 0;
     var count = 0;
-    for (int i=0; i<imagelistflgs.length; i++) {
+    for (int i = 0; i < imagelistflgs.length; i++) {
       print("i=" + i.toString());
       print(textFieldList[i]);
       if (imagelistflgs[i] == 1 && (textFieldList[i].length == 0)) {
         return false;
-      } 
-      
+      }
+
       if (imagelistflgs[i] == 0 && (textFieldList[i].length != 0)) {
         return false;
       }
@@ -396,7 +396,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (imagelistflgs[i] == 0) {
         count += 1;
       }
-      if (count == imagelistflgs.length){
+      if (count == imagelistflgs.length) {
         // 全てimageがnullの場合
         return false;
       }
@@ -486,7 +486,8 @@ class _MyHomePageState extends State<MyHomePage> {
         Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => NextPage(textFieldList, imageList)))
+                    builder: (context) =>
+                        NextPage(textFieldList, imageList, imagelistflgs)))
             .then((value) {
           setState(() {
             rank1Txt = visiblerank ? "1位" : "";
