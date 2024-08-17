@@ -4,6 +4,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:make_rank/main.dart';
+import 'package:make_rank/settings_grid.dart';
 
 class Settings extends StatefulWidget {
 //  Settings(this.names, this.imgs);
@@ -42,7 +43,28 @@ class _MyPageState extends State<Settings> {
                   setState(() {});
                   GlobalMethod().saveData(value);
                 },
-              )
+              ),
+              SettingsTile.navigation(
+                //               leading: const Icon(Icons.language),
+                title: const Text('グリッド数'),
+                value:
+                    (gridSize == GridSize.grid2x2) ? Text('2×2') : Text('3×3'),
+                onPressed: (context) async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SettingsGrid())).then((value) {
+                    if (value != null) {
+                      // save data
+                      print("return value:");
+                      print(value);
+                      gridSize = value;
+                      setState(() {});
+                      GlobalMethod().saveData2(value);
+                    }
+                  });
+                },
+              ),
             ]),
             SettingsSection(title: const Text("このアプリについて"), tiles: [
               SettingsTile.navigation(
