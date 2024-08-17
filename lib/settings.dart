@@ -44,6 +44,17 @@ class _MyPageState extends State<Settings> {
                   GlobalMethod().saveData(value);
                 },
               ),
+              SettingsTile.switchTile(
+//                leading: const FlutterLogo(),
+                title: const Text('テキストの入力・表示'),
+//                description: const Text('description'),
+                initialValue: visibletext,
+                onToggle: (value) {
+                  visibletext = value;
+                  setState(() {});
+                  GlobalMethod().saveData3(value);
+                },
+              ),
               SettingsTile.navigation(
                 //               leading: const Icon(Icons.language),
                 title: const Text('グリッド数'),

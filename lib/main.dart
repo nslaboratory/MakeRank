@@ -41,10 +41,25 @@ enum GridSize { grid2x2, grid3x3 }
 
 GridSize gridSize = GridSize.grid2x2;
 
+bool visibletext = true;
+
+final controller0 = TextEditingController();
+final controller1 = TextEditingController();
+final controller2 = TextEditingController();
+final controller3 = TextEditingController();
+final controller4 = TextEditingController();
+final controller5 = TextEditingController();
+final controller6 = TextEditingController();
+final controller7 = TextEditingController();
+final controller8 = TextEditingController();
+
+var textFieldList = ["", "", "", "", "", "", "", "", ""];
+
 StreamController<bool> _controller = StreamController<bool>.broadcast();
 
 // saveData() and loadData() for visiblerank
 // saveData2() and loadData2() for gridSize
+// saveData3() and loadData3() for visibletext
 class GlobalMethod {
   Future<void> saveData(bool visiblerank) async {
     final prefs = await SharedPreferences.getInstance();
@@ -86,6 +101,20 @@ class GlobalMethod {
     gridSize = GridSize.values.byName(prefs.getString("GridSize")!);
     print("gridSize at loadData2() :");
     print(gridSize);
+//    _controller.add(visiblerank);
+  }
+
+  Future<void> saveData3(bool visibletext) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("VisibleText", visibletext);
+  }
+
+  Future<void> loadData3() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool("VisibleText") == null) {
+      await saveData3(true);
+    }
+    visibletext = prefs.getBool("VisibleText")!;
 //    _controller.add(visiblerank);
   }
 }
@@ -159,17 +188,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final picker = ImagePicker();
 
-  final controller0 = TextEditingController();
-  final controller1 = TextEditingController();
-  final controller2 = TextEditingController();
-  final controller3 = TextEditingController();
-  final controller4 = TextEditingController();
-  final controller5 = TextEditingController();
-  final controller6 = TextEditingController();
-  final controller7 = TextEditingController();
-  final controller8 = TextEditingController();
-
-  var textFieldList = ["", "", "", "", "", "", "", "", ""];
   List<Image?> imageList = [
     null,
     null,
@@ -198,6 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     GlobalMethod().loadData();
     GlobalMethod().loadData2();
+    GlobalMethod().loadData3();
 //    initLoadData();
 //    print("visiblerank : " + visiblerank.toString());
 //    setState(() {
@@ -282,6 +301,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   rank8Txt = visiblerank ? "8位" : "";
                   rank9Txt = visiblerank ? "9位" : "";
                   print(rank1Txt);
+                  if (visibletext == false) {
+                    for (int i = 0; i < textFieldList.length; i++) {
+                      textFieldList[i] = "";
+                    }
+                    controller0.clear();
+                    controller1.clear();
+                    controller2.clear();
+                    controller3.clear();
+                    controller4.clear();
+                    controller5.clear();
+                    controller6.clear();
+                    controller7.clear();
+                    controller8.clear();
+                  }
                 });
               });
             },
@@ -315,6 +348,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 title: TextField(
                                   key: keyTextBox,
                                   controller: controller0,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[0] = text;
                                     setState(() {});
@@ -336,6 +370,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller1,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[1] = text;
                                     setState(() {});
@@ -356,6 +391,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller2,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[2] = text;
                                     setState(() {});
@@ -376,6 +412,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller3,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[3] = text;
                                     setState(() {});
@@ -403,6 +440,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   //                                ),
                                   key: keyTextBox,
                                   controller: controller0,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[0] = text;
                                     setState(() {});
@@ -424,6 +462,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller1,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[1] = text;
                                     setState(() {});
@@ -444,6 +483,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller2,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[2] = text;
                                     setState(() {});
@@ -466,6 +506,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 title: TextField(
                                   //                                key: keyTextBox,
                                   controller: controller3,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[3] = text;
                                     setState(() {});
@@ -487,6 +528,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller4,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[4] = text;
                                     setState(() {});
@@ -507,6 +549,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller5,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[5] = text;
                                     setState(() {});
@@ -529,6 +572,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 title: TextField(
                                   //                                key: keyTextBox,
                                   controller: controller6,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[6] = text;
                                     setState(() {});
@@ -550,6 +594,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller7,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[7] = text;
                                     setState(() {});
@@ -570,6 +615,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 title: TextField(
                                   controller: controller8,
+                                  enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[8] = text;
                                     setState(() {});
@@ -663,11 +709,15 @@ class _MyHomePageState extends State<MyHomePage> {
     for (int i = 0; i < imagelistflgs.length; i++) {
       print("i=" + i.toString());
       print(textFieldList[i]);
-      if (imagelistflgs[i] == 1 && (textFieldList[i].length == 0)) {
+      if (imagelistflgs[i] == 1 &&
+          (textFieldList[i].length == 0) &&
+          visibletext) {
         return false;
       }
 
-      if (imagelistflgs[i] == 0 && (textFieldList[i].length != 0)) {
+      if (imagelistflgs[i] == 0 &&
+          (textFieldList[i].length != 0) &&
+          visibletext) {
         return false;
       }
 

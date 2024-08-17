@@ -229,6 +229,20 @@ class _MyPageState extends State<NextPage> {
                   rank8Txt = visiblerank ? "8位" : "";
                   rank9Txt = visiblerank ? "9位" : "";
                   print(rank1Txt);
+                  if (visibletext == false) {
+                    for (int i = 0; i < textFieldList.length; i++) {
+                      textFieldList[i] = "";
+                    }
+                    controller0.clear();
+                    controller1.clear();
+                    controller2.clear();
+                    controller3.clear();
+                    controller4.clear();
+                    controller5.clear();
+                    controller6.clear();
+                    controller7.clear();
+                    controller8.clear();
+                  }
                 });
               });
             },
@@ -255,7 +269,8 @@ class _MyPageState extends State<NextPage> {
                       children: (gridSize == GridSize.grid2x2)
                           ? [
                               GridTile(
-                                footer: (widget.imgflgs[0] == 0)
+                                footer: (widget.imgflgs[0] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : GridTileBar(
                                         backgroundColor: Colors.black45,
@@ -277,7 +292,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[1] == 0)
+                                footer: (widget.imgflgs[1] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : GridTileBar(
                                         backgroundColor: Colors.black45,
@@ -299,7 +315,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[2] == 0)
+                                footer: (widget.imgflgs[2] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : GridTileBar(
                                         backgroundColor: Colors.black45,
@@ -321,7 +338,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[3] == 0)
+                                footer: (widget.imgflgs[3] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : GridTileBar(
                                         backgroundColor: Colors.black45,
@@ -345,7 +363,8 @@ class _MyPageState extends State<NextPage> {
                             ]
                           : [
                               GridTile(
-                                footer: (widget.imgflgs[0] == 0)
+                                footer: (widget.imgflgs[0] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
@@ -370,7 +389,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[1] == 0)
+                                footer: (widget.imgflgs[1] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
@@ -395,7 +415,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[2] == 0)
+                                footer: (widget.imgflgs[2] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
@@ -420,7 +441,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[3] == 0)
+                                footer: (widget.imgflgs[3] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
@@ -445,7 +467,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[4] == 0)
+                                footer: (widget.imgflgs[4] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
@@ -470,7 +493,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[5] == 0)
+                                footer: (widget.imgflgs[5] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
@@ -495,7 +519,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[6] == 0)
+                                footer: (widget.imgflgs[6] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
@@ -520,7 +545,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[7] == 0)
+                                footer: (widget.imgflgs[7] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
@@ -545,7 +571,8 @@ class _MyPageState extends State<NextPage> {
                                 ),
                               ),
                               GridTile(
-                                footer: (widget.imgflgs[8] == 0)
+                                footer: (widget.imgflgs[8] == 0 ||
+                                        (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
                                         height: 50,
