@@ -223,6 +223,11 @@ class _MyPageState extends State<NextPage> {
                   rank2Txt = visiblerank ? "2位" : "";
                   rank3Txt = visiblerank ? "3位" : "";
                   rank4Txt = visiblerank ? "4位" : "";
+                  rank5Txt = visiblerank ? "5位" : "";
+                  rank6Txt = visiblerank ? "6位" : "";
+                  rank7Txt = visiblerank ? "7位" : "";
+                  rank8Txt = visiblerank ? "8位" : "";
+                  rank9Txt = visiblerank ? "9位" : "";
                   print(rank1Txt);
                 });
               });
@@ -242,107 +247,347 @@ class _MyPageState extends State<NextPage> {
                 alignment: AlignmentDirectional.bottomEnd,
                 children: <Widget>[
                   GridView.count(
-                    padding: EdgeInsets.all(0.0),
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 3.0,
-                    mainAxisSpacing: 3.0,
-                    shrinkWrap: true,
-                    children: [
-                      GridTile(
-                        footer: (widget.imgflgs[0] == 0)
-                            ? null
-                            : GridTileBar(
-                                backgroundColor: Colors.black54,
-                                title: Text(
-                                  widget.names[0],
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                      padding: EdgeInsets.all(0.0),
+                      crossAxisCount: (gridSize == GridSize.grid2x2) ? 2 : 3,
+                      crossAxisSpacing: 3.0,
+                      mainAxisSpacing: 3.0,
+                      shrinkWrap: true,
+                      children: (gridSize == GridSize.grid2x2)
+                          ? [
+                              GridTile(
+                                footer: (widget.imgflgs[0] == 0)
+                                    ? null
+                                    : GridTileBar(
+                                        backgroundColor: Colors.black45,
+                                        title: Text(
+                                          widget.names[0],
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: (visiblerank)
+                                            ? Text("1位")
+                                            : Text(""),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[0] == 1)
+                                      ? widget.imgs[0]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
                                 ),
-                                subtitle: (visiblerank) ? Text("1位") : Text(""),
                               ),
-                        child: Image(
-                          image: (widget.imgflgs[0] == 1)
-                              ? widget.imgs[0]!.image
-                              : Image.asset("assets/null.png").image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      GridTile(
-                        footer: (widget.imgflgs[1] == 0)
-                            ? null
-                            : GridTileBar(
-                                backgroundColor: Colors.black54,
-                                title: Text(
-                                  widget.names[1],
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                              GridTile(
+                                footer: (widget.imgflgs[1] == 0)
+                                    ? null
+                                    : GridTileBar(
+                                        backgroundColor: Colors.black45,
+                                        title: Text(
+                                          widget.names[1],
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: (visiblerank)
+                                            ? Text("2位")
+                                            : Text(""),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[1] == 1)
+                                      ? widget.imgs[1]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
                                 ),
-                                subtitle: (visiblerank) ? Text("2位") : Text(""),
                               ),
-                        child: Image(
-                          image: (widget.imgflgs[1] == 1)
-                              ? widget.imgs[1]!.image
-                              : Image.asset("assets/null.png").image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      GridTile(
-                        footer: (widget.imgflgs[2] == 0)
-                            ? null
-                            : GridTileBar(
-                                backgroundColor: Colors.black54,
-                                title: Text(
-                                  widget.names[2],
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                              GridTile(
+                                footer: (widget.imgflgs[2] == 0)
+                                    ? null
+                                    : GridTileBar(
+                                        backgroundColor: Colors.black45,
+                                        title: Text(
+                                          widget.names[2],
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: (visiblerank)
+                                            ? Text("3位")
+                                            : Text(""),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[2] == 1)
+                                      ? widget.imgs[2]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
                                 ),
-                                subtitle: (visiblerank) ? Text("3位") : Text(""),
                               ),
-                        child: Image(
-                          image: (widget.imgflgs[2] == 1)
-                              ? widget.imgs[2]!.image
-                              : Image.asset("assets/null.png").image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      GridTile(
-                        footer: (widget.imgflgs[3] == 0)
-                            ? null
-                            : GridTileBar(
-                                backgroundColor: Colors.black54,
-                                title: Text(
-                                  widget.names[3],
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                              GridTile(
+                                footer: (widget.imgflgs[3] == 0)
+                                    ? null
+                                    : GridTileBar(
+                                        backgroundColor: Colors.black45,
+                                        title: Text(
+                                          widget.names[3],
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        subtitle: (visiblerank)
+                                            ? Text("4位")
+                                            : Text(""),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[3] == 1)
+                                      ? widget.imgs[3]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
                                 ),
-                                subtitle: (visiblerank) ? Text("4位") : Text(""),
+                              )
+                            ]
+                          : [
+                              GridTile(
+                                footer: (widget.imgflgs[0] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[0],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("1位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[0] == 1)
+                                      ? widget.imgs[0]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                        child: Image(
-                          image: (widget.imgflgs[3] == 1)
-                              ? widget.imgs[3]!.image
-                              : Image.asset("assets/null.png").image,
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                    ],
-                  ),
+                              GridTile(
+                                footer: (widget.imgflgs[1] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[1],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("2位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[1] == 1)
+                                      ? widget.imgs[1]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              GridTile(
+                                footer: (widget.imgflgs[2] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[2],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("3位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[2] == 1)
+                                      ? widget.imgs[2]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              GridTile(
+                                footer: (widget.imgflgs[3] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[3],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("4位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[3] == 1)
+                                      ? widget.imgs[3]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              GridTile(
+                                footer: (widget.imgflgs[4] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[4],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("5位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[4] == 1)
+                                      ? widget.imgs[4]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              GridTile(
+                                footer: (widget.imgflgs[5] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[5],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("6位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[5] == 1)
+                                      ? widget.imgs[5]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              GridTile(
+                                footer: (widget.imgflgs[6] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[6],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("7位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[6] == 1)
+                                      ? widget.imgs[6]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              GridTile(
+                                footer: (widget.imgflgs[7] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[7],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("8位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[7] == 1)
+                                      ? widget.imgs[7]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              GridTile(
+                                footer: (widget.imgflgs[8] == 0)
+                                    ? null
+                                    : Container(
+                                        height: 50,
+                                        child: GridTileBar(
+                                          backgroundColor: Colors.black45,
+                                          title: Text(
+                                            widget.names[8],
+                                            style: const TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: (visiblerank)
+                                              ? Text("9位")
+                                              : Text(""),
+                                        ),
+                                      ),
+                                child: Image(
+                                  image: (widget.imgflgs[8] == 1)
+                                      ? widget.imgs[8]!.image
+                                      : Image.asset("assets/null.png").image,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            ]),
                   // Positioned(
                   //   bottom: 5,
                   //   right: 10,
                   //   child: Text("generated by Rankる", style: TextStyle(color: Colors.white),)
                   // )
-                  Align(
+/*                  Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child: Text("generated by Rankる",
-                          style: TextStyle(color: Colors.white)),
+                      child: (gridSize == GridSize.grid2x2)
+                          ? Text("generated by Rankる",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14))
+                          : Text("generated by Rankる",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 12)),
                     ),
-                  )
+                  )*/
                 ],
               ),
             ),
