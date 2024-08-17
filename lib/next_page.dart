@@ -275,14 +275,18 @@ class _MyPageState extends State<NextPage> {
                                     : GridTileBar(
                                         backgroundColor: Colors.black45,
                                         title: Text(
-                                          widget.names[0],
+                                          (visiblerank & !visibletext)
+                                              ? "1位"
+                                              : widget.names[0],
                                           style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        subtitle: (visiblerank)
-                                            ? Text("1位")
-                                            : Text(""),
+                                        subtitle: (visiblerank & !visibletext)
+                                            ? null
+                                            : (visiblerank)
+                                                ? Text("1位")
+                                                : null,
                                       ),
                                 child: Image(
                                   image: (widget.imgflgs[0] == 1)
@@ -298,14 +302,18 @@ class _MyPageState extends State<NextPage> {
                                     : GridTileBar(
                                         backgroundColor: Colors.black45,
                                         title: Text(
-                                          widget.names[1],
+                                          (visiblerank & !visibletext)
+                                              ? "2位"
+                                              : widget.names[1],
                                           style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        subtitle: (visiblerank)
-                                            ? Text("2位")
-                                            : Text(""),
+                                        subtitle: (visiblerank & !visibletext)
+                                            ? null
+                                            : (visiblerank)
+                                                ? Text("2位")
+                                                : null,
                                       ),
                                 child: Image(
                                   image: (widget.imgflgs[1] == 1)
@@ -321,14 +329,18 @@ class _MyPageState extends State<NextPage> {
                                     : GridTileBar(
                                         backgroundColor: Colors.black45,
                                         title: Text(
-                                          widget.names[2],
+                                          (visiblerank & !visibletext)
+                                              ? "3位"
+                                              : widget.names[2],
                                           style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        subtitle: (visiblerank)
-                                            ? Text("3位")
-                                            : Text(""),
+                                        subtitle: (visiblerank & !visibletext)
+                                            ? null
+                                            : (visiblerank)
+                                                ? Text("3位")
+                                                : null,
                                       ),
                                 child: Image(
                                   image: (widget.imgflgs[2] == 1)
@@ -344,14 +356,18 @@ class _MyPageState extends State<NextPage> {
                                     : GridTileBar(
                                         backgroundColor: Colors.black45,
                                         title: Text(
-                                          widget.names[3],
+                                          (visiblerank & !visibletext)
+                                              ? "4位"
+                                              : widget.names[3],
                                           style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        subtitle: (visiblerank)
-                                            ? Text("4位")
-                                            : Text(""),
+                                        subtitle: (visiblerank & !visibletext)
+                                            ? null
+                                            : (visiblerank)
+                                                ? Text("4位")
+                                                : null,
                                       ),
                                 child: Image(
                                   image: (widget.imgflgs[3] == 1)
@@ -367,18 +383,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[0],
+                                            (visiblerank & !visibletext)
+                                                ? "1位"
+                                                : widget.names[0],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("1位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("1位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
@@ -393,18 +416,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[1],
+                                            (visiblerank & !visibletext)
+                                                ? "2位"
+                                                : widget.names[1],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("2位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("2位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
@@ -419,18 +449,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[2],
+                                            (visiblerank & !visibletext)
+                                                ? "3位"
+                                                : widget.names[2],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("3位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("3位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
@@ -445,18 +482,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[3],
+                                            (visiblerank & !visibletext)
+                                                ? "4位"
+                                                : widget.names[3],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("4位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("4位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
@@ -471,18 +515,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[4],
+                                            (visiblerank & !visibletext)
+                                                ? "5位"
+                                                : widget.names[4],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("5位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("5位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
@@ -497,18 +548,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[5],
+                                            (visiblerank & !visibletext)
+                                                ? "6位"
+                                                : widget.names[5],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("6位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("6位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
@@ -523,18 +581,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[6],
+                                            (visiblerank & !visibletext)
+                                                ? "7位"
+                                                : widget.names[6],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("7位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("7位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
@@ -549,18 +614,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[7],
+                                            (visiblerank & !visibletext)
+                                                ? "8位"
+                                                : widget.names[7],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("8位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("8位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
@@ -575,18 +647,25 @@ class _MyPageState extends State<NextPage> {
                                         (!visiblerank & !visibletext))
                                     ? null
                                     : Container(
-                                        height: 50,
+                                        height: (!visiblerank & visibletext ||
+                                                visiblerank & !visibletext)
+                                            ? 35
+                                            : 50,
                                         child: GridTileBar(
                                           backgroundColor: Colors.black45,
                                           title: Text(
-                                            widget.names[8],
+                                            (visiblerank & !visibletext)
+                                                ? "9位"
+                                                : widget.names[8],
                                             style: const TextStyle(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          subtitle: (visiblerank)
-                                              ? Text("9位")
-                                              : Text(""),
+                                          subtitle: (visiblerank & !visibletext)
+                                              ? null
+                                              : (visiblerank)
+                                                  ? Text("9位")
+                                                  : null,
                                         ),
                                       ),
                                 child: Image(
