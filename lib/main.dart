@@ -201,6 +201,18 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey keyTextBox = GlobalKey();
   GlobalKey keySettings = GlobalKey();
 
+  List<GlobalKey> keyListTile = [
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey(),
+    GlobalKey()
+  ];
+
   final picker = ImagePicker();
 
   List<Image?> imageList = [
@@ -353,10 +365,33 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.75,
-                child: ListView(
+                child: ReorderableListView(
+                    onReorder: (int oldIndex, int newIndex) {
+                      print("onReorder : " +
+                          oldIndex.toString() +
+                          " " +
+                          newIndex.toString());
+                      print(textFieldList);
+                      setState(() {
+                        if (oldIndex < newIndex) {
+                          newIndex -= 1;
+                        }
+
+                        var textitem = textFieldList.removeAt(oldIndex);
+                        textFieldList.insert(newIndex, textitem);
+                        for (int i = 0; i < controllerList.length; i++) {
+                          controllerList[i].text = textFieldList[i];
+                        }
+
+                        var imageitem = imageList.removeAt(oldIndex);
+                        imageList.insert(newIndex, imageitem);
+                      });
+                      print(textFieldList);
+                    },
                     children: (gridSize == GridSize.grid2x2)
                         ? [
                             ListTile(
+                                key: keyListTile[0],
                                 leading: GestureDetector(
                                   key: keyImage,
                                   child: imageList[0] == null
@@ -380,6 +415,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[1],
                                 leading: GestureDetector(
                                   //                  key: keyImage,
                                   child: imageList[1] == null
@@ -402,6 +438,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[2],
                                 leading: GestureDetector(
                                   child: imageList[2] == null
                                       ? const Icon(Icons.image, size: 30)
@@ -423,6 +460,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[3],
                                 leading: GestureDetector(
                                   child: imageList[3] == null
                                       ? const Icon(Icons.image, size: 30)
@@ -446,6 +484,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ]
                         : [
                             ListTile(
+                                key: keyListTile[0],
                                 leading: GestureDetector(
                                   key: keyImage,
                                   child: imageList[0] == null
@@ -472,6 +511,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[1],
                                 leading: GestureDetector(
                                   //                  key: keyImage,
                                   child: imageList[1] == null
@@ -494,6 +534,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[2],
                                 leading: GestureDetector(
                                   child: imageList[2] == null
                                       ? const Icon(Icons.image, size: 30)
@@ -515,6 +556,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[3],
                                 leading: GestureDetector(
                                   //                                key: keyImage,
                                   child: imageList[3] == null
@@ -538,6 +580,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[4],
                                 leading: GestureDetector(
                                   //                  key: keyImage,
                                   child: imageList[4] == null
@@ -560,6 +603,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[5],
                                 leading: GestureDetector(
                                   child: imageList[5] == null
                                       ? const Icon(Icons.image, size: 30)
@@ -581,6 +625,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[6],
                                 leading: GestureDetector(
                                   //                                key: keyImage,
                                   child: imageList[6] == null
@@ -604,6 +649,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[7],
                                 leading: GestureDetector(
                                   //                  key: keyImage,
                                   child: imageList[7] == null
@@ -626,6 +672,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
+                                key: keyListTile[8],
                                 leading: GestureDetector(
                                   child: imageList[8] == null
                                       ? const Icon(Icons.image, size: 30)
