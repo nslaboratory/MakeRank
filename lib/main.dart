@@ -366,6 +366,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.75,
                 child: ReorderableListView.builder(
+                    buildDefaultDragHandles: false,
                     itemBuilder: (context, index) {
                       if (index == 0) {
                         return ListTile(
@@ -378,6 +379,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               onTap: () {
                                 _getImage(index);
                               },
+                            ),
+                            trailing: ReorderableDragStartListener(
+                              child: Icon(Icons.drag_handle),
+                              index: index,
                             ),
                             title: TextField(
                               key: keyTextBox,
@@ -402,6 +407,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               onTap: () {
                                 _getImage(index);
                               },
+                            ),
+                            trailing: ReorderableDragStartListener(
+                              child: Icon(Icons.drag_handle),
+                              index: index,
                             ),
                             title: TextField(
                               controller: controllerList[index],
