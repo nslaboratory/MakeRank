@@ -365,7 +365,82 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.75,
-                child: ReorderableListView(
+                child: ReorderableListView.builder(
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return ListTile(
+                            key: keyListTile[index],
+                            leading: GestureDetector(
+                              key: keyImage,
+                              child: imageList[index] == null
+                                  ? const Icon(Icons.image, size: 30)
+                                  : imageList[index],
+                              onTap: () {
+                                _getImage(index);
+                              },
+                            ),
+                            title: TextField(
+                              key: keyTextBox,
+                              controller: controllerList[index],
+                              enabled: visibletext,
+                              onChanged: (text) {
+                                textFieldList[index] = text;
+                                setState(() {});
+                              },
+                              decoration: InputDecoration(
+                                  labelText: rankTxtList[index],
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always),
+                            ));
+                      } else {
+                        return ListTile(
+                            key: keyListTile[index],
+                            leading: GestureDetector(
+                              child: imageList[index] == null
+                                  ? const Icon(Icons.image, size: 30)
+                                  : imageList[index],
+                              onTap: () {
+                                _getImage(index);
+                              },
+                            ),
+                            title: TextField(
+                              controller: controllerList[index],
+                              enabled: visibletext,
+                              onChanged: (text) {
+                                textFieldList[index] = text;
+                                setState(() {});
+                              },
+                              decoration: InputDecoration(
+                                  labelText: rankTxtList[index],
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always),
+                            ));
+                      }
+                    },
+                    itemCount: (gridSize == GridSize.grid2x2) ? 4 : 9,
+                    onReorder: (int oldIndex, int newIndex) {
+                      print("onReorder : " +
+                          oldIndex.toString() +
+                          " " +
+                          newIndex.toString());
+                      print(textFieldList);
+                      setState(() {
+                        if (oldIndex < newIndex) {
+                          newIndex -= 1;
+                        }
+
+                        var textitem = textFieldList.removeAt(oldIndex);
+                        textFieldList.insert(newIndex, textitem);
+                        for (int i = 0; i < controllerList.length; i++) {
+                          controllerList[i].text = textFieldList[i];
+                        }
+
+                        var imageitem = imageList.removeAt(oldIndex);
+                        imageList.insert(newIndex, imageitem);
+                      });
+                      print(textFieldList);
+                    }),
+/*                child: ReorderableListView(
                     onReorder: (int oldIndex, int newIndex) {
                       print("onReorder : " +
                           oldIndex.toString() +
@@ -693,7 +768,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 ))
-                          ]),
+                          ]),*/
               ),
               Align(
                 alignment: Alignment.bottomCenter,
