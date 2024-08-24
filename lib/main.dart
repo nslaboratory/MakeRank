@@ -17,15 +17,16 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool visiblerank = true;
-var rank1Txt = "";
-var rank2Txt = "";
-var rank3Txt = "";
-var rank4Txt = "";
-var rank5Txt = "";
-var rank6Txt = "";
-var rank7Txt = "";
-var rank8Txt = "";
-var rank9Txt = "";
+//var rank1Txt = "";
+//var rank2Txt = "";
+//var rank3Txt = "";
+//var rank4Txt = "";
+//var rank5Txt = "";
+//var rank6Txt = "";
+//var rank7Txt = "";
+//var rank8Txt = "";
+//var rank9Txt = "";
+var rankTxtList = ["", "", "", "", "", "", "", "", ""];
 
 enum GridSize { grid2x2, grid3x3 }
 //enum GridSize { grid2x2("grid2x2"), grid3x3("grid3x3") }
@@ -43,15 +44,26 @@ GridSize gridSize = GridSize.grid2x2;
 
 bool visibletext = true;
 
-final controller0 = TextEditingController();
-final controller1 = TextEditingController();
-final controller2 = TextEditingController();
-final controller3 = TextEditingController();
-final controller4 = TextEditingController();
-final controller5 = TextEditingController();
-final controller6 = TextEditingController();
-final controller7 = TextEditingController();
-final controller8 = TextEditingController();
+//final controller0 = TextEditingController();
+//final controller1 = TextEditingController();
+//final controller2 = TextEditingController();
+//final controller3 = TextEditingController();
+//final controller4 = TextEditingController();
+//final controller5 = TextEditingController();
+//final controller6 = TextEditingController();
+//final controller7 = TextEditingController();
+//final controller8 = TextEditingController();
+final controllerList = [
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController(),
+  TextEditingController()
+];
 
 var textFieldList = ["", "", "", "", "", "", "", "", ""];
 
@@ -72,7 +84,7 @@ class GlobalMethod {
       await saveData(true);
     }
     visiblerank = prefs.getBool("VisibleRank")!;
-    rank1Txt = visiblerank ? "1位" : "";
+/*    rank1Txt = visiblerank ? "1位" : "";
     rank2Txt = visiblerank ? "2位" : "";
     rank3Txt = visiblerank ? "3位" : "";
     rank4Txt = visiblerank ? "4位" : "";
@@ -80,7 +92,10 @@ class GlobalMethod {
     rank6Txt = visiblerank ? "6位" : "";
     rank7Txt = visiblerank ? "7位" : "";
     rank8Txt = visiblerank ? "8位" : "";
-    rank9Txt = visiblerank ? "9位" : "";
+    rank9Txt = visiblerank ? "9位" : ""; */
+    rankTxtList = (visiblerank)
+        ? ["1位", "2位", "3位", "4位", "5位", "6位", "7位", "8位", "9位"]
+        : ["", "", "", "", "", "", "", "", ""];
     _controller.add(visiblerank);
   }
 
@@ -163,7 +178,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   XFile? _image;
-  Image? _image0;
+/*  Image? _image0;
   Image? _image1;
   Image? _image2;
   Image? _image3;
@@ -171,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Image? _image5;
   Image? _image6;
   Image? _image7;
-  Image? _image8;
+  Image? _image8;*/
 
   var pickedFile;
 
@@ -291,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialPageRoute(builder: (context) => Settings()),
               ).then((value) {
                 setState(() {
-                  rank1Txt = visiblerank ? "1位" : "";
+/*                  rank1Txt = visiblerank ? "1位" : "";
                   rank2Txt = visiblerank ? "2位" : "";
                   rank3Txt = visiblerank ? "3位" : "";
                   rank4Txt = visiblerank ? "4位" : "";
@@ -300,12 +315,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   rank7Txt = visiblerank ? "7位" : "";
                   rank8Txt = visiblerank ? "8位" : "";
                   rank9Txt = visiblerank ? "9位" : "";
-                  print(rank1Txt);
+                  print(rank1Txt); */
+                  rankTxtList = (visiblerank)
+                      ? ["1位", "2位", "3位", "4位", "5位", "6位", "7位", "8位", "9位"]
+                      : ["", "", "", "", "", "", "", "", ""];
                   if (visibletext == false) {
                     for (int i = 0; i < textFieldList.length; i++) {
                       textFieldList[i] = "";
                     }
-                    controller0.clear();
+/*                    controller0.clear();
                     controller1.clear();
                     controller2.clear();
                     controller3.clear();
@@ -313,7 +331,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     controller5.clear();
                     controller6.clear();
                     controller7.clear();
-                    controller8.clear();
+                    controller8.clear(); */
+                    for (var element in controllerList) {
+                      element.clear();
+                    }
                   }
                 });
               });
@@ -338,87 +359,87 @@ class _MyHomePageState extends State<MyHomePage> {
                             ListTile(
                                 leading: GestureDetector(
                                   key: keyImage,
-                                  child: _image0 == null
+                                  child: imageList[0] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image0,
+                                      : imageList[0],
                                   onTap: () {
                                     _getImage(0);
                                   },
                                 ),
                                 title: TextField(
                                   key: keyTextBox,
-                                  controller: controller0,
+                                  controller: controllerList[0],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[0] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank1Txt,
+                                      labelText: rankTxtList[0],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
                                   //                  key: keyImage,
-                                  child: _image1 == null
+                                  child: imageList[1] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image1,
+                                      : imageList[1],
                                   onTap: () {
                                     _getImage(1);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller1,
+                                  controller: controllerList[1],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[1] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank2Txt,
+                                      labelText: rankTxtList[1],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
-                                  child: _image2 == null
+                                  child: imageList[2] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image2,
+                                      : imageList[2],
                                   onTap: () {
                                     _getImage(2);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller2,
+                                  controller: controllerList[2],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[2] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank3Txt,
+                                      labelText: rankTxtList[2],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
-                                  child: _image3 == null
+                                  child: imageList[3] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image3,
+                                      : imageList[3],
                                   onTap: () {
                                     _getImage(3);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller3,
+                                  controller: controllerList[3],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[3] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank4Txt,
+                                      labelText: rankTxtList[3],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 ))
@@ -427,9 +448,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             ListTile(
                                 leading: GestureDetector(
                                   key: keyImage,
-                                  child: _image0 == null
+                                  child: imageList[0] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image0,
+                                      : imageList[0],
                                   onTap: () {
                                     _getImage(0);
                                   },
@@ -439,189 +460,189 @@ class _MyHomePageState extends State<MyHomePage> {
                                   //                                  fontSize: 15.0,
                                   //                                ),
                                   key: keyTextBox,
-                                  controller: controller0,
+                                  controller: controllerList[0],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[0] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank1Txt,
+                                      labelText: rankTxtList[0],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
                                   //                  key: keyImage,
-                                  child: _image1 == null
+                                  child: imageList[1] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image1,
+                                      : imageList[1],
                                   onTap: () {
                                     _getImage(1);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller1,
+                                  controller: controllerList[1],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[1] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank2Txt,
+                                      labelText: rankTxtList[1],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
-                                  child: _image2 == null
+                                  child: imageList[2] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image2,
+                                      : imageList[2],
                                   onTap: () {
                                     _getImage(2);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller2,
+                                  controller: controllerList[2],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[2] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank3Txt,
+                                      labelText: rankTxtList[2],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
                                   //                                key: keyImage,
-                                  child: _image3 == null
+                                  child: imageList[3] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image3,
+                                      : imageList[3],
                                   onTap: () {
                                     _getImage(3);
                                   },
                                 ),
                                 title: TextField(
                                   //                                key: keyTextBox,
-                                  controller: controller3,
+                                  controller: controllerList[3],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[3] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank4Txt,
+                                      labelText: rankTxtList[3],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
                                   //                  key: keyImage,
-                                  child: _image4 == null
+                                  child: imageList[4] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image4,
+                                      : imageList[4],
                                   onTap: () {
                                     _getImage(4);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller4,
+                                  controller: controllerList[4],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[4] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank5Txt,
+                                      labelText: rankTxtList[4],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
-                                  child: _image5 == null
+                                  child: imageList[5] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image5,
+                                      : imageList[5],
                                   onTap: () {
                                     _getImage(5);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller5,
+                                  controller: controllerList[5],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[5] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank6Txt,
+                                      labelText: rankTxtList[5],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
                                   //                                key: keyImage,
-                                  child: _image6 == null
+                                  child: imageList[6] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image6,
+                                      : imageList[6],
                                   onTap: () {
                                     _getImage(6);
                                   },
                                 ),
                                 title: TextField(
                                   //                                key: keyTextBox,
-                                  controller: controller6,
+                                  controller: controllerList[6],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[6] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank7Txt,
+                                      labelText: rankTxtList[6],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
                                   //                  key: keyImage,
-                                  child: _image7 == null
+                                  child: imageList[7] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image7,
+                                      : imageList[7],
                                   onTap: () {
                                     _getImage(7);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller7,
+                                  controller: controllerList[7],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[7] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank8Txt,
+                                      labelText: rankTxtList[7],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 )),
                             ListTile(
                                 leading: GestureDetector(
-                                  child: _image8 == null
+                                  child: imageList[8] == null
                                       ? const Icon(Icons.image, size: 30)
-                                      : _image8,
+                                      : imageList[8],
                                   onTap: () {
                                     _getImage(8);
                                   },
                                 ),
                                 title: TextField(
-                                  controller: controller8,
+                                  controller: controllerList[8],
                                   enabled: visibletext,
                                   onChanged: (text) {
                                     textFieldList[8] = text;
                                     setState(() {});
                                   },
                                   decoration: InputDecoration(
-                                      labelText: rank9Txt,
+                                      labelText: rankTxtList[8],
                                       floatingLabelBehavior:
                                           FloatingLabelBehavior.always),
                                 ))
@@ -663,7 +684,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               imageList,
                                               imagelistflgs))).then((value) {
                                     setState(() {
-                                      rank1Txt = visiblerank ? "1位" : "";
+/*                                      rank1Txt = visiblerank ? "1位" : "";
                                       rank2Txt = visiblerank ? "2位" : "";
                                       rank3Txt = visiblerank ? "3位" : "";
                                       rank4Txt = visiblerank ? "4位" : "";
@@ -672,7 +693,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                       rank7Txt = visiblerank ? "7位" : "";
                                       rank8Txt = visiblerank ? "8位" : "";
                                       rank9Txt = visiblerank ? "9位" : "";
-                                      print(rank1Txt);
+                                      print(rank1Txt); */
+                                      rankTxtList = (visiblerank)
+                                          ? [
+                                              "1位",
+                                              "2位",
+                                              "3位",
+                                              "4位",
+                                              "5位",
+                                              "6位",
+                                              "7位",
+                                              "8位",
+                                              "9位"
+                                            ]
+                                          : [
+                                              "",
+                                              "",
+                                              "",
+                                              "",
+                                              "",
+                                              "",
+                                              "",
+                                              "",
+                                              ""
+                                            ];
                                     });
                                   });
                                 }
@@ -769,7 +813,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //        height: 30,
 //        width: 30,
       );
-      if (i == 0) {
+/*      if (i == 0) {
         _image0 = imageForImage;
         imageList[0] = _image0;
       } else if (i == 1) {
@@ -796,7 +840,8 @@ class _MyHomePageState extends State<MyHomePage> {
       } else if (i == 8) {
         _image8 = imageForImage;
         imageList[8] = _image8;
-      }
+      } */
+      imageList[i] = imageForImage;
 //      } else {
 //        print('No image selected.');
 //      }
@@ -837,7 +882,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         NextPage(textFieldList, imageList, imagelistflgs)))
             .then((value) {
           setState(() {
-            rank1Txt = visiblerank ? "1位" : "";
+/*            rank1Txt = visiblerank ? "1位" : "";
             rank2Txt = visiblerank ? "2位" : "";
             rank3Txt = visiblerank ? "3位" : "";
             rank4Txt = visiblerank ? "4位" : "";
@@ -846,7 +891,10 @@ class _MyHomePageState extends State<MyHomePage> {
             rank7Txt = visiblerank ? "7位" : "";
             rank8Txt = visiblerank ? "8位" : "";
             rank9Txt = visiblerank ? "9位" : "";
-            print(rank1Txt);
+            print(rank1Txt); */
+            rankTxtList = (visiblerank)
+                ? ["1位", "2位", "3位", "4位", "5位", "6位", "7位", "8位", "9位"]
+                : ["", "", "", "", "", "", "", "", ""];
           });
         });
       });

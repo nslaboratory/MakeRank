@@ -219,7 +219,7 @@ class _MyPageState extends State<NextPage> {
                 MaterialPageRoute(builder: (context) => Settings()),
               ).then((value) {
                 setState(() {
-                  rank1Txt = visiblerank ? "1位" : "";
+/*                  rank1Txt = visiblerank ? "1位" : "";
                   rank2Txt = visiblerank ? "2位" : "";
                   rank3Txt = visiblerank ? "3位" : "";
                   rank4Txt = visiblerank ? "4位" : "";
@@ -228,12 +228,15 @@ class _MyPageState extends State<NextPage> {
                   rank7Txt = visiblerank ? "7位" : "";
                   rank8Txt = visiblerank ? "8位" : "";
                   rank9Txt = visiblerank ? "9位" : "";
-                  print(rank1Txt);
+                  print(rank1Txt); */
+                  rankTxtList = (visiblerank)
+                      ? ["1位", "2位", "3位", "4位", "5位", "6位", "7位", "8位", "9位"]
+                      : ["", "", "", "", "", "", "", "", ""];
                   if (visibletext == false) {
                     for (int i = 0; i < textFieldList.length; i++) {
                       textFieldList[i] = "";
                     }
-                    controller0.clear();
+/*                    controller0.clear();
                     controller1.clear();
                     controller2.clear();
                     controller3.clear();
@@ -241,7 +244,10 @@ class _MyPageState extends State<NextPage> {
                     controller5.clear();
                     controller6.clear();
                     controller7.clear();
-                    controller8.clear();
+                    controller8.clear(); */
+                    for (var element in controllerList) {
+                      element.clear();
+                    }
                   }
                 });
               });
